@@ -5,16 +5,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Abc.Tests.Data.Quantity
 {
     [TestClass]
-    public class UnitFactorDataTests : SealedClassTest<UnitFactorData, PeriodData>     //Käivita kõik minu tehtud measuredata testid ja käivita kõik baseclassi testid nendel kahel tingimusel.
+    public class UnitFactorDataTests : SealedClassTests<UnitFactorData, PeriodData>
     {
         [TestMethod]
         public void FactorTest()
         {
             IsProperty(() => obj.Factor, x => obj.Factor = x);
         }
-        
+
         [TestMethod]
-        public void systemOfUnitsIdTest()
+        public void SystemOfUnitsIdTest()
         {
             IsNullableProperty(() => obj.SystemOfUnitsId, x => obj.SystemOfUnitsId = x);
         }

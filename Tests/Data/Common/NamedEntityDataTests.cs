@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Abc.Tests.Data.Common
 {
     [TestClass]
-    public class NamedEntityDataTests : AbstractClassTest<NamedEntityData, UniqueEntityData>
+    public class NamedEntityDataTests : AbstractClassTests<NamedEntityData, UniqueEntityData>
     {
         private class TestClass : NamedEntityData
         {

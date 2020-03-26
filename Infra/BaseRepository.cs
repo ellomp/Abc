@@ -19,6 +19,26 @@ namespace Abc.Infra
             db = c;
             dbSet = s;
         }
+        public virtual async Task<List<TDomain>> Get()
+        {
+            var query = CreateSqlQuery(); //teen sql query, ei tea kuidas ag ateeme
+            var set = await runSqlQueryAsync(query); //küsin db andmed ja vastavalt sellele queryle  mida teinud olem
+
+            return toDomainObjectsList(set); //nii, vii see kõik listi, mis ei ole andmeobj list vaid valdkonna obj list
+        }
+        
+        internal List<TDomain> toDomainObjectsList(List<TData> set) => set.Select(toDomainObject).ToList();
+
+        protected internal abstract TDomain toDomainObject(TData periodData);
+        
+        internal async Task<List<TData>> runSqlQueryAsync(IQueryable<TData> query) => await query.AsNoTracking().ToListAsync();
+        
+        protected internal virtual IQueryable<TData> CreateSqlQuery()
+        {
+            var query = from s in dbSet select s;
+            return query;
+        }
+
         public async Task Add(TDomain obj) //async et saaks teha samaegset töötlust, microsofti õpetusetes räägiti sellest pikalt
         {
             if (obj?.Data is null) return;
@@ -33,29 +53,6 @@ namespace Abc.Infra
             dbSet.Remove(d);
             await db.SaveChangesAsync();
         }
-        public virtual async Task<List<TDomain>> Get()
-        {
-            var query = CreateSqlQuery(); //teen sql query, ei tea kuidas ag ateeme
-            var set = await runSqlQueryAsync(query); //küsin db andmed ja vastavalt sellele queryle  mida teinud olem
-            
-            return toDomainObjectsList(set); //nii, vii see kõik listi, mis ei ole andmeobj list vaid valdkonna obj list
-        }
-        internal List<TDomain> toDomainObjectsList(List<TData> set) => set.Select(toDomainObject).ToList();
-
-        protected internal abstract TDomain toDomainObject(TData periodData);
-        
-        internal async Task<List<TData>> runSqlQueryAsync(IQueryable<TData> query) => await query.AsNoTracking().ToListAsync();
-        
-        protected internal virtual IQueryable<TData> CreateSqlQuery()
-        {
-            var query = from s in dbSet select s;
-            return query;
-        }
-
-
-
-
-
 
         public async Task<TDomain> Get(string id)
         {

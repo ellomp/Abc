@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Abc.Domain.Quantity;
-using Abc.Facade.Quantity;
 using Abc.Pages.Quantity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,26 +7,20 @@ namespace Abc.Soft.Areas.Quantity.Pages.Measures
 {
     public class EditModel : MeasuresPage
     {
-        public EditModel(IMeasureRepository r) : base(r) { }
-      
-        public async Task<IActionResult> OnGetAsync(string id)
-        {
-            if (id == null) return NotFound();
-          
-            Item = MeasureViewFactory.Create(await data.Get(id));
+        public EditModel(IMeasuresRepository r) : base(r) { }
 
-            if (Item == null) return NotFound();
- 
+        public async Task<IActionResult> OnGetAsync(string id, string fixedFilter, string fixedValue)
+        {
+            await GetObject(id, fixedFilter, fixedValue);
+
             return Page();
         }
 
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string fixedFilter, string fixedValue)
         {
-            if (!ModelState.IsValid) return Page();
-            await data.Update(MeasureViewFactory.Create(Item)); 
-            return RedirectToPage("./Index");
+            await UpdateObject(fixedFilter, fixedValue);
+
+            return Redirect(IndexUrl);
         }
     }
 }

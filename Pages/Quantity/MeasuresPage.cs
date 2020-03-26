@@ -1,34 +1,29 @@
-﻿using Abc.Domain.Quantity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Collections.Generic;
+﻿using Abc.Data.Quantity;
+using Abc.Domain.Quantity;
 using Abc.Facade.Quantity;
 
 namespace Abc.Pages.Quantity
 {
-    public abstract class MeasuresPage : PageModel
+    public abstract class MeasuresPage : BasePage<IMeasuresRepository, Measure, MeasureView, MeasureData>
     {
-        protected internal readonly IMeasureRepository data; //teised ei näe kui testin?
-
-        protected internal MeasuresPage(IMeasureRepository r)
+        protected internal MeasuresPage(IMeasuresRepository r) : base(r)
         {
-            data = r;
             PageTitle = "Measures";
         }
+        public override string ItemId => Item?.Id ?? string.Empty; //kuita e iole 0 anna id ja kui see kõik on 0 siis pane strign empty
+        protected internal override string GetPageUrl()
+        {
+            return "/Quantity/Measures";
+        }
 
-        [BindProperty]
-        public MeasureView Item { get; set; }
-        public IList<MeasureView> Items { get; set; }
+        protected internal override Measure ToObject(MeasureView view)
+        {
+            return MeasureViewFactory.Create(view);
+        }
 
-        public string CurrentSort { get; set; } = "Sort";
-        public string CurrentFilter { get; set; } = "Filer";
-        public string PageIndex { get; set; } = "3";
-        public string TotalPages { get; set; } = "10";
-        public string PageTitle { get; set; }
-        public string PageSubTitle { get; set; }
-        public string ItemId => Item.Id;
-
-
-
+        protected internal override MeasureView ToView(Measure obj)
+        {
+            return MeasureViewFactory.Create(obj);
+        }
     }
 }

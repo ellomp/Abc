@@ -4,7 +4,7 @@
 
 @{
     Layout = "_Index"; @*kasutab templateks _index lehe*@
-    var page = "/Quantity/Measures";
+    var page = Model.PageUrl;
 }
 
 @section Create{
@@ -12,19 +12,17 @@
 }
 
 <body>
-
-    <table class="table">@*tabel*@
-        <thead>@*tabeli päis*@
+<table class="table">@*tabel*@
+        <thead>@*tabeli päis ja m = model tegelikult*@
                 @Html.TableHeaderFor(
-                    new Link(Html.DisplayNameFor(model => model.Item.Id), $"{page}?SortOrder={Model.IdSort}"),
-                       new Link(Html.DisplayNameFor(model => model.Item.Name), $"{page}?SortOrder={Model.NameSort}"),
-                       new Link(Html.DisplayNameFor(model => model.Item.Code), $"{page}?SortOrder={Model.CodeSort}"),
-                       new Link(Html.DisplayNameFor(model => model.Item.Definition), $"{page}?SortOrder={Model.DefinitionSort}"),
-                       new Link(Html.DisplayNameFor(model => model.Item.ValidFrom), $"{page}?SortOrder={Model.ValidFromSort}"),
-                       new Link(Html.DisplayNameFor(model => model.Item.ValidTo), $"{page}?SortOrder={Model.ValidToSort}")
+                    new Link(Html.DisplayNameFor(m => m.Item.Id), Model.GetSortString(m=>m.Id, page)),
+                       new Link(Html.DisplayNameFor(m => m.Item.Name), Model.GetSortString(m=>m.Name,page)),
+                       new Link(Html.DisplayNameFor(m => m.Item.Code), Model.GetSortString(m=>m.Code,page)),
+                       new Link(Html.DisplayNameFor(m => m.Item.Definition), Model.GetSortString(m=>m.Definition,page)),
+                       new Link(Html.DisplayNameFor(m => m.Item.ValidFrom), Model.GetSortString(m=>m.ValidFrom,page)),
+                       new Link(Html.DisplayNameFor(m => m.Item.ValidTo), Model.GetSortString(m=>m.ValidTo,page))
                    )
         </thead>
-
         <tbody>
             @foreach (var item in Model.Items)
             {
@@ -42,5 +40,5 @@
                 </tr>
             }
         </tbody>
-    </table>
+    </table> 
 </body>

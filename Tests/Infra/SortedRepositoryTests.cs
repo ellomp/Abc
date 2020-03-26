@@ -14,7 +14,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Abc.Tests.Infra
 {
     [TestClass]
-    public class SortedRepositoryTests:AbstractClassTest<SortedRepository<Measure, MeasureData>, BaseRepository<Measure, MeasureData>>
+    public class SortedRepositoryTests:AbstractClassTests<SortedRepository<Measure, MeasureData>, BaseRepository<Measure, MeasureData>>
     {
         private class TestClass : SortedRepository<Measure, MeasureData>
         {
@@ -56,31 +56,33 @@ namespace Abc.Tests.Infra
         [TestMethod]
         public void SetSortingTest()
         {
-            void test(IQueryable<MeasureData> d, string sortOrder)
+            void Test(IQueryable<MeasureData> d, string sortOrder)
             {
                 obj.SortOrder = sortOrder + obj.DescendingString;
                 var set = obj.AddSorting(d);
                 Assert.IsNotNull(set);
                 Assert.AreNotEqual(d, set);
-                Assert.IsTrue(set.Expression.ToString()
-                    .Contains($"Abc.Data.Quantity.MeasureData]).OrderByDescending(Param_0 => Convert(Param_0.{sortOrder}, Object))"));
+                var str = set.Expression.ToString();
+                Assert.IsTrue(str
+                    .Contains($"Abc.Data.Quantity.MeasureData]).OrderByDescending(x => Convert(x.{sortOrder}, Object))"));
                 obj.SortOrder = sortOrder;
                 set = obj.AddSorting(d);
                 Assert.IsNotNull(set);
                 Assert.AreNotEqual(d, set);
-                Assert.IsTrue(set.Expression.ToString().Contains($"Abc.Data.Quantity.MeasureData]).OrderBy(Param_0 => Convert(Param_0.{sortOrder}, Object))"));
+                str = set.Expression.ToString();
+                Assert.IsTrue(str.Contains($"Abc.Data.Quantity.MeasureData]).OrderBy(x => Convert(x.{sortOrder}, Object))"));
             }
 
             Assert.IsNull(obj.AddSorting(null));
             IQueryable<MeasureData> data = obj.dbSet;
             obj.SortOrder = null;
             Assert.AreEqual(data, obj.AddSorting(data));
-            test(data, GetMember.Name<MeasureData>(x => x.Id));
-            test(data, GetMember.Name<MeasureData>(x => x.Code));
-            test(data, GetMember.Name<MeasureData>(x => x.Name));
-            test(data, GetMember.Name<MeasureData>(x => x.Definition));
-            test(data, GetMember.Name<MeasureData>(x => x.ValidFrom));
-            test(data, GetMember.Name<MeasureData>(x => x.ValidTo));
+            Test(data, GetMember.Name<MeasureData>(x => x.Id));
+            Test(data, GetMember.Name<MeasureData>(x => x.Code));
+            Test(data, GetMember.Name<MeasureData>(x => x.Name));
+            Test(data, GetMember.Name<MeasureData>(x => x.Definition));
+            Test(data, GetMember.Name<MeasureData>(x => x.ValidFrom));
+            Test(data, GetMember.Name<MeasureData>(x => x.ValidTo));
         }
         [TestMethod]
         public void CreateExpressionTest()
@@ -178,7 +180,7 @@ namespace Abc.Tests.Infra
         [TestMethod]
         public void SetOrderByTest()
         {
-            void test(IQueryable<MeasureData> d, Expression<Func<MeasureData, object>> e, string expected)
+            void Test(IQueryable<MeasureData> d, Expression<Func<MeasureData, object>> e, string expected)
             {
                 obj.SortOrder = GetRandom.String() + obj.DescendingString;
                 var set = obj.AddOrderBy(d, e);
@@ -196,12 +198,12 @@ namespace Abc.Tests.Infra
             Assert.IsNull(obj.AddOrderBy(null, null));
             IQueryable<MeasureData> data = obj.dbSet;
             Assert.AreEqual(data, obj.AddOrderBy(data, null));
-            test(data, x => x.Id, "x => x.Id");
-            test(data, x => x.Code, "x => x.Code");
-            test(data, x => x.Name, "x => x.Name");
-            test(data, x => x.Definition, "x => x.Definition");
-            test(data, x => x.ValidFrom, "x => Convert(x.ValidFrom, Object)");
-            test(data, x => x.ValidTo, "x => Convert(x.ValidTo, Object)");
+            Test(data, x => x.Id, "x => x.Id");
+            Test(data, x => x.Code, "x => x.Code");
+            Test(data, x => x.Name, "x => x.Name");
+            Test(data, x => x.Definition, "x => x.Definition");
+            Test(data, x => x.ValidFrom, "x => Convert(x.ValidFrom, Object)");
+            Test(data, x => x.ValidTo, "x => Convert(x.ValidTo, Object)");
 
 
         }

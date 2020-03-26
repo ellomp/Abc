@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Abc.Tests.Data.Common
 {
     [TestClass]
-    public class PeriodDataTests : AbstractClassTest<PeriodData, object>     
+    public class PeriodDataTests : AbstractClassTests<PeriodData, object>     
     {
         private class TestClass : PeriodData
         {

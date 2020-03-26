@@ -31,7 +31,10 @@ namespace Abc.Soft
                    Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddScoped<IMeasureRepository, MeasuresRepository>();
+            services.AddScoped<IMeasuresRepository, MeasuresRepository>();
+            services.AddScoped<IUnitsRepository, UnitsRepository>();
+            services.AddServerSideBlazor();
+ 
             services.AddRazorPages();
         }
 
@@ -61,6 +64,7 @@ namespace Abc.Soft
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapBlazorHub();
             });
         }
     }
