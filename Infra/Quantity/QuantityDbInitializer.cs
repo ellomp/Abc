@@ -218,7 +218,7 @@ namespace Abc.Infra.Quantity
 
         private static void initializeUnits(QuantityDbContext db)
         {
-            if (db.Units.Count() != 0) return;
+            if (db.Units.Any()) return;
             db.Units.AddRange(timeUnits);
             db.Units.AddRange(lenghtUnits);
             db.Units.AddRange(massUnits);
@@ -231,7 +231,7 @@ namespace Abc.Infra.Quantity
 
         private static void initializeMeasures(QuantityDbContext db)
         {
-            if (db.Measures.Count() != 0) return;
+            if (db.Measures.Any()) return;
             db.Measures.AddRange(measures);
             db.SaveChanges();
         }
