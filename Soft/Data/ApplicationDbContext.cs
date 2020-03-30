@@ -1,5 +1,4 @@
-﻿using Abc.Infra.Quantity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Abc.Soft.Data
