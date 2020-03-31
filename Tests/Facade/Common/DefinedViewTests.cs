@@ -6,9 +6,7 @@ namespace Abc.Tests.Facade.Common
     [TestClass]
     public class DefinedViewTests : AbstractClassTests<DefinedView, NamedView>
     {
-        private class TestClass : DefinedView
-        {
-        }
+        private class TestClass : DefinedView { }
 
         [TestInitialize]
         public override void TestInitialize()

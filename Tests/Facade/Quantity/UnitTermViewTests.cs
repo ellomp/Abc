@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Abc.Facade.Quantity;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Abc.Tests.Facade.Quantity
+{
+    [TestClass]
+    public class UnitTermViewTests : SealedClassTests<UnitTermView, CommonTermView>
+    {
+        [TestMethod] public void MasterId() => IsNullableProperty(() => obj.MasterId, x => obj.MasterId = x);
+    }
+}

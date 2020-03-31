@@ -6,15 +6,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Abc.Tests.Facade.Quantity
 {
-
     [TestClass]
-    public class MeasureViewFactoryTests : BaseTests
+    class UnitFactorViewFactoryTests : BaseTests
     {
 
         [TestInitialize]
         public virtual void TestInitialize()
         {
-            type = typeof(MeasureViewFactory);
+            type = typeof(MeasureTermViewFactory);
         }
 
         [TestMethod] public void CreateTest() { }
@@ -22,8 +21,8 @@ namespace Abc.Tests.Facade.Quantity
         [TestMethod]
         public void CreateObjectTest()
         {
-            var view = GetRandom.Object<MeasureView>();
-            var data = MeasureViewFactory.Create(view).Data;
+            var view = GetRandom.Object<MeasureTermView>();
+            var data = MeasureTermViewFactory.Create(view).Data;
 
             ArePropertyValuesEqualTest(view, data);
 
@@ -32,14 +31,13 @@ namespace Abc.Tests.Facade.Quantity
         [TestMethod]
         public void CreateViewTest()
         {
-            var data = GetRandom.Object<MeasureData>();
-            var view = MeasureViewFactory.Create(new Measure(data));
+            var data = GetRandom.Object<MeasureTermData>();
+            var view = MeasureTermViewFactory.Create(new MeasureTerm(data));
 
             ArePropertyValuesEqualTest(view, data);
 
         }
 
     }
-
 
 }
