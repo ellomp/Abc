@@ -43,7 +43,7 @@ namespace Abc.Tests.Domain.Common
         public void CanSetNullDataTest()
         {
             //var d = GetRandom.Object<MeasureData>();
-            //obj = new TestClass(d);
+            //obj = new testClass(d);
             Assert.IsNotNull(obj.Data);
             obj.Data = null;
             Assert.IsNull(obj.Data);

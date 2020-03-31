@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Abc.Data.Common;
 using Abc.Domain.Common;
-using Abc.Domain.Quantity;
 
 
 namespace Abc.Infra

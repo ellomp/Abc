@@ -18,10 +18,7 @@ namespace Abc.Tests.Infra
     {
         private class TestClass : SortedRepository<Measure, MeasureData>
         {
-            public TestClass(DbContext c, DbSet<MeasureData> s) : base(c, s)
-            {
-            }
-
+            public TestClass(DbContext c, DbSet<MeasureData> s) : base(c, s) { } //constructor
 
             protected internal override Measure toDomainObject(MeasureData d) => new Measure(d);
 

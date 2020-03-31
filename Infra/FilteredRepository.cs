@@ -15,9 +15,7 @@ namespace Abc.Infra
         public string FixedFilter { get; set; }
         public string FixedValue { get; set; }
 
-        protected FilteredRepository(DbContext c, DbSet<TData> s) : base(c, s)
-        {
-        }
+        protected FilteredRepository(DbContext c, DbSet<TData> s) : base(c, s) { }
 
         protected internal override IQueryable<TData> CreateSqlQuery()
         {
@@ -52,15 +50,13 @@ namespace Abc.Infra
             var predicate = body;
 
             return Expression.Lambda<Func<TData, bool>>(predicate, param);
-
         }
 
         protected internal IQueryable<TData> AddFiltering(IQueryable<TData> query)
         {
             if (string.IsNullOrEmpty(SearchString)) return query;
             var expression = CreateWhereExpression();
-
-            return query.Where(expression);
+            return expression is null ? query : query.Where(expression);
         }
 
         internal Expression<Func<TData, bool>> CreateWhereExpression()

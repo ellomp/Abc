@@ -1,12 +1,13 @@
  using System;
  using Abc.Aids;
+ using Abc.Tests.Infra;
  using Microsoft.VisualStudio.TestTools.UnitTesting;
 
  namespace Abc.Tests
 {
     public abstract class BaseClassTests<TClass, TBaseClass> : BaseTests
     {
-        protected TClass obj;
+        protected BaseRepositoryTests.TestClass obj;
 
         [TestInitialize]
         public virtual void TestInitialize()
@@ -21,7 +22,6 @@
         }
 
         protected static void IsNullableProperty<T>(Func<T> get, Action<T> set)
-            //get set ja random on funktsioonid
         {
             IsProperty(get, set);
             var d = (T)GetRandom.Value(typeof(T));
@@ -30,7 +30,6 @@
         }
 
         protected static void IsProperty<T>(Func<T> get, Action<T> set)
-            //get set ja random on funktsioonid
         {
             var d = (T)GetRandom.Value(typeof(T));
             Assert.AreNotEqual(d, get());
