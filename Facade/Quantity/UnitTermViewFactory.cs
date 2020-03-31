@@ -1,22 +1,23 @@
-﻿using Abc.Data.Quantity;
+﻿using Abc.Aids;
+using Abc.Data.Quantity;
 using Abc.Domain.Quantity;
 
 namespace Abc.Facade.Quantity
 {
     public static class UnitTermViewFactory
     {
-        public static UnitTerm Create(UnitTermView view)
+        public static UnitTerm Create(UnitTermView v)
         {
             var d = new UnitTermData();
-            Copy.Members(view, d); //copy viewst datasse
+            Copy.Members(v, d); //copy viewst datasse
 
-            return new UnitTerm();
+            return new UnitTerm(d);
         }
 
-        public static UnitTermView Create(UnitTerm obj)
+        public static UnitTermView Create(UnitTerm o)
         {
             var v = new UnitTermView();
-            Copy.Members(obj.Data, v);
+            Copy.Members(o.Data, v);
 
             return v;
         }

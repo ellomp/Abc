@@ -1,52 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Abc.Facade.Quantity;
+using Abc.Pages.Extensions;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Abc.Pages.Extensions
+namespace Abc.Tests.Pages.Extensions
 {
-    public static class DisplayControlsForHtmlExtension
+    [TestClass]
+    public class DisplayControlsForHtmlExtension : BaseTests
     {
-        public static IHtmlContent DisplayControlsFor<TModel, TResult>
-            (this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression)
+
+        [TestInitialize] public virtual void TestInitialize() => type = typeof(DisplayControlsForHtmlExtension);
+
+        [TestMethod]
+        public void DisplayControlsForTest()
         {
-            var s = htmlStrings(htmlHelper, expression);
-            return new HtmlContentBuilder(s);
+            var obj = new htmlHelperMock<UnitView>().DisplayControlsFor(x => x.MeasureId);
+            Assert.IsInstanceOfType(obj, typeof(HtmlContentBuilder));
         }
 
-        public static IHtmlContent DisplayControlsFor<TModel, TResult>
-            (this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression, string value)
-        {
-            var s = htmlString(htmlHelper, expression, value);
-            return new HtmlContentBuilder(s);
-        }
-
-        internal static List<object> htmlStrings<TModel, TResult>
-            (IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression)
-        {
-            return new List<object>
-            {
-                new HtmlString("<dt class=\"col-sm-2\">"),
-                htmlHelper.DisplayNameFor(expression),
-                new HtmlString("</dt>"),
-                new HtmlString("<dd class=\"col-sm-10\">"),
-                htmlHelper.DisplayFor(expression),
-                new HtmlString("</dd>")
-            };
-        }
-
-        private static List<object> htmlString<TModel, TResult>(IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression, string value)
-        {
-            return new List<object>
-            {
-                new HtmlString("<dt class=\"col-sm-2\">"),
-                htmlHelper.DisplayNameFor(expression),
-                new HtmlString("</dt>"),
-                new HtmlString("<dd class=\"col-sm-10\">"),
-                htmlHelper.Raw(value),
-                new HtmlString("</dd>")
-            };
-        }
+        //[TestMethod]
+        //public void HtmlStringsTest()
+        //{
+        //    var expected = new List<string> { "<dt", "DisplayNameFor", "</dt>", "<dd", "DisplayFor", "</dd>" };
+        //    var actual =
+        //        DisplayControlsForHtmlExtension.htmlStrings(new htmlHelperMock<MeasureView>(), x => x.ValidFrom);
+        //    TestHtml.Strings(actual, expected);
+        //}
     }
+
 }

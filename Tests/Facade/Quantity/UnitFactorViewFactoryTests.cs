@@ -7,9 +7,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Abc.Tests.Facade.Quantity
 {
     [TestClass]
-    class UnitFactorViewFactoryTests : BaseTests
+    public class UnitFactorViewFactoryTests : BaseTests
     {
-
         [TestInitialize]
         public virtual void TestInitialize()
         {
@@ -31,8 +30,8 @@ namespace Abc.Tests.Facade.Quantity
         [TestMethod]
         public void CreateViewTest()
         {
-            var data = GetRandom.Object<MeasureTermData>();
-            var view = MeasureTermViewFactory.Create(new MeasureTerm(data));
+            var view = GetRandom.Object<UnitFactorView>();
+            var data = UnitFactorViewFactory.Create(view).Data;
 
             ArePropertyValuesEqualTest(view, data);
 

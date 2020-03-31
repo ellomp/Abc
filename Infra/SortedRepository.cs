@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Abc.Data.Common;
 using Abc.Domain.Common;
+using Abc.Domain.Quantity;
 
 
 namespace Abc.Infra
@@ -17,6 +18,8 @@ namespace Abc.Infra
         public string DescendingString => "_desc";
 
         protected SortedRepository(DbContext c, DbSet<TData> s) : base(c, s) { }
+
+        //protected override string GetId(Measure entity) => entity?.Data?.Id;
 
         protected internal override IQueryable<TData> CreateSqlQuery()
         {

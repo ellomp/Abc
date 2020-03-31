@@ -30,6 +30,9 @@ namespace Abc.Tests.Infra
                 await Task.CompletedTask;
                 return new MeasureData();
             }
+
+            protected override string GetId(Measure entity) => entity?.Data?.Id; //? tähendba et ei tohi 0 olla
+
         }
 
         [TestInitialize]

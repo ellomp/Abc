@@ -47,11 +47,19 @@ namespace Abc.Infra
         }
         public async Task Delete(string id)
         {
-            var d = await dbSet.FindAsync(id); //otsib andmebaasist
+            if (id is null) return;
 
-            if (d is null) return;
-            dbSet.Remove(d);
+            var v = await dbSet.FindAsync(id);
+
+            if (v is null) return;
+            dbSet.Remove(v);
             await db.SaveChangesAsync();
+
+            //var d = await dbSet.FindAsync(id); //otsib andmebaasist
+
+            //if (d is null) return;
+            //dbSet.Remove(d);
+            //await db.SaveChangesAsync();
         }
 
         public async Task<TDomain> Get(string id)
@@ -66,23 +74,17 @@ namespace Abc.Infra
 
         public async Task Update(TDomain obj)
         {
-            db.Attach(obj.Data).State = EntityState.Modified;
+            if (obj is null) return;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                //if (!MeasureViewExists(MeasureView.Id))
-                //{
-                //    return NotFound();
-                //}
-                //else
-                //{
-                throw;
-                //}
-            }
+            var v = await dbSet.FindAsync(GetId(obj));
+
+            if (v is null) return;
+
+            dbSet.Remove(v); //eemaldan
+            dbSet.Add(obj.Data); //lisan uue
+            await db.SaveChangesAsync(); //ja alles siis salvestan
         }
+
+        protected abstract string GetId(TDomain entity);
     }
 }

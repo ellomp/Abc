@@ -5,8 +5,5 @@ namespace Abc.Facade.Quantity
 {
     public sealed class MeasureTermView : CommonTermView
     {
-        [Required]
-        [DisplayName("Measure")]
-        public string MasterId { get; set; } //ükskõik kas hoiad idd nimele v milellegi muule
     }
 }

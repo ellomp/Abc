@@ -7,11 +7,6 @@ namespace Abc.Tests.Facade.Quantity
     [TestClass]
     public class UnitViewTests : SealedClassTests<UnitView, DefinedView>
     {
-
-        [TestMethod]
-        public void MeasureIdTest()
-        {
-            IsNullableProperty(() => obj.MeasureId, x => obj.MeasureId = x);
-        }
+        [TestMethod] public void MeasureIdTest() => IsNullableProperty(() => obj.MeasureId, x => obj.MeasureId = x);
     }
 }

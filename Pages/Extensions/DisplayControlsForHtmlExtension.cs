@@ -9,17 +9,26 @@ namespace Abc.Pages.Extensions
     public static class DisplayControlsForHtmlExtension
     {
         public static IHtmlContent DisplayControlsFor<TModel, TResult>(
-            this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression){
-            var s = htmlString(htmlHelper, expression);
+            this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression)
+        {
+
+            var s = htmlStrings(htmlHelper, expression);
 
             return new HtmlContentBuilder(s);
         }
 
-        internal static List<object> htmlString<TClassType, TPropertyType>(
-            IHtmlHelper<TClassType> htmlHelper, 
-            Expression<Func<TClassType, TPropertyType>> expression) 
+        public static IHtmlContent DisplayControlsFor<TModel, TResult>(this IHtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TResult>> expression, string value)
         {
-            return new List<object>() {
+            var s = htmlStrings(htmlHelper, expression, value);
+
+            return new HtmlContentBuilder(s);
+        }
+
+        internal static List<object> htmlStrings<TModel, TResult>(IHtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TResult>> expression)
+        {
+            return new List<object> {
                 new HtmlString("<dt class=\"col-sm-2\">"),
                 htmlHelper.DisplayNameFor(expression),
                 new HtmlString("</dt>"),
@@ -27,20 +36,12 @@ namespace Abc.Pages.Extensions
                 htmlHelper.DisplayFor(expression),
                 new HtmlString("</dd>")
             };
-
         }
 
-        public static IHtmlContent DisplayControlsFor<TModel, TResult> (this IHtmlHelper<TModel> htmlHelper, 
+        public static List<object> htmlStrings<TModel, TResult>(IHtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TResult>> expression, string value)
         {
-            var s = htmlString(htmlHelper, expression, value);
-
-            return new HtmlContentBuilder(s);
-        }
-
-        private static List<object> htmlString<TModel, TResult>(IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression, string value)
-        {
-            return new List<object>() {
+            return new List<object> {
                 new HtmlString("<dt class=\"col-sm-2\">"),
                 htmlHelper.DisplayNameFor(expression),
                 new HtmlString("</dt>"),
@@ -49,5 +50,7 @@ namespace Abc.Pages.Extensions
                 new HtmlString("</dd>")
             };
         }
+
     }
+
 }

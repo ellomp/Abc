@@ -5,15 +5,12 @@ namespace Abc.Tests.Facade
     [TestClass]
     public class IsFacadeTested : AssemblyTests
     {
-        private const string Assembly = "Abc.Facade";
+        private const string assembly = "Abc.Facade";
 
-        protected override string Namespace(string name)
-        {
-            return $"{Assembly}.{name}";
-        }
+        protected override string Namespace(string name) { return $"{assembly}.{name}"; }
 
-        [TestMethod] public void IsCommonTested() { IsAllTested(Assembly, Namespace("Common")); }
-        [TestMethod] public void IsQuantityTested() { IsAllTested(Assembly, Namespace("Quantity")); }
+        [TestMethod] public void IsCommonTested() { IsAllTested(assembly, Namespace("Common")); }
+        [TestMethod] public void IsQuantityTested() { IsAllTested(assembly, Namespace("Quantity")); }
         [TestMethod] public void IsTested() { IsAllTested(base.Namespace("Facade")); }
 
     }

@@ -13,5 +13,8 @@ namespace Abc.Infra
 
         protected override async Task<TData> getData(string id) 
             => await dbSet.FirstOrDefaultAsync(m => m.Id == id);
+
+        protected override string GetId(TDomain entity) => entity?.Data?.Id; //? tähendba et ei tohi 0 olla
+
     }
 }

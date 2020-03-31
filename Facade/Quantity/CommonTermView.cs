@@ -10,5 +10,7 @@ namespace Abc.Facade.Quantity
         [DisplayName ("Term")]
         public string TermId { get; set; }
         public int Power { get; set; }
+        [DisplayName("Unit")]
+        public string MasterId { get; set; }
     }
 }

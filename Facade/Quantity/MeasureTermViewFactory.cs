@@ -1,22 +1,23 @@
-﻿using Abc.Data.Quantity;
+﻿using Abc.Aids;
+using Abc.Data.Quantity;
 using Abc.Domain.Quantity;
 
 namespace Abc.Facade.Quantity
 {
     public static class MeasureTermViewFactory
     {
-        public static MeasureTerm Create(MeasureTermView view)
+        public static MeasureTerm Create(MeasureTermView v)
         {
             var d = new MeasureTermData();
-            Copy.Members(view, d); //copy viewst datasse
+            Copy.Members(v, d);
 
-            return new MeasureTerm();
+            return new MeasureTerm(d);
         }
 
-        public static MeasureTermView Create(MeasureTerm obj)
+        public static MeasureTermView Create(MeasureTerm o)
         {
             var v = new MeasureTermView();
-            Copy.Members(obj.Data, v);
+            Copy.Members(o.Data, v);
 
             return v;
         }

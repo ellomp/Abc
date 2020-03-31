@@ -14,7 +14,6 @@ namespace Abc.Tests
         protected Type type;
 
         [TestMethod]
-
         public void IsTested()
         {
             if (type == null) Assert.Inconclusive(NotSpecified); //kui tüüpi pole, siis annab ta mulle teada, et sellist tüüpi polegi 

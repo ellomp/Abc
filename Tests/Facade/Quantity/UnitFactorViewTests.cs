@@ -9,7 +9,7 @@ namespace Abc.Tests.Facade.Quantity
     {
         [TestMethod] public void UnitIdTest() => IsNullableProperty(() => obj.UnitId, x => obj.UnitId = x);
         [TestMethod] public void SystemOfUnitsIdTest() => IsNullableProperty(() => obj.SystemOfUnitsId, x => obj.SystemOfUnitsId = x);
-        [TestMethod] public void FactorTest() => IsNullableProperty(() => obj.Factor, x => obj.Factor = x);
+        [TestMethod] public void FactorTest() => IsProperty(() => obj.Factor, x => obj.Factor = x);
 
     }
 }

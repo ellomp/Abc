@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Abc.Pages.Extensions {
+namespace Abc.Tests.Pages.Extensions {
 
+    [TestClass]
     public static class EditControlsForEnumHtmlExtension {
 
         public static IHtmlContent EditControlsForEnum<TModel, TResult>(
