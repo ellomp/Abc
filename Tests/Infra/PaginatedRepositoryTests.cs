@@ -13,10 +13,10 @@ namespace Abc.Tests.Infra
     [TestClass]
     public class PaginatedRepositoryTests : AbstractClassTests<PaginatedRepository<Measure, MeasureData>, FilteredRepository<Measure, MeasureData>>
     {
-        private class testClass : PaginatedRepository<Measure, MeasureData>
+        private class TestClass : PaginatedRepository<Measure, MeasureData>
         {
 
-            public testClass(DbContext c, DbSet<MeasureData> s) : base(c, s) { }
+            public TestClass(DbContext c, DbSet<MeasureData> s) : base(c, s) { }
 
             protected internal override Measure toDomainObject(MeasureData d) => new Measure(d);
 
@@ -26,7 +26,7 @@ namespace Abc.Tests.Infra
 
         }
 
-        private byte count;
+        private byte _count;
 
         [TestInitialize]
         public override void TestInitialize()
@@ -37,8 +37,8 @@ namespace Abc.Tests.Infra
                 .UseInMemoryDatabase("TestDb")
                 .Options;
             var c = new QuantityDbContext(options);
-            obj = new testClass(c, c.Measures);
-            count = GetRandom.UInt8(10, 30);
+            obj = new TestClass(c, c.Measures);
+            _count = GetRandom.UInt8(20, 40);
 
             foreach (var p in c.Measures) //see loop teeb andmebaasi tühjaks, vajalik Count total items testclassi jaoks, sest luges väärtuseid topelt
             {
@@ -56,7 +56,7 @@ namespace Abc.Tests.Infra
         [TestMethod]
         public void TotalPagesTest()
         {
-            var expected = (int) Math.Ceiling(count /(double) obj.PageSize); // (double) teisendab page sizei komaga arvuks
+            var expected = (int) Math.Ceiling(_count /(double) obj.PageSize); // (double) teisendab page sizei komaga arvuks
             var totalPagesCount = obj.TotalPages;
             Assert.AreEqual(expected, totalPagesCount);
         }
@@ -70,8 +70,12 @@ namespace Abc.Tests.Infra
                 Assert.AreEqual(expected, actual);
             }
 
+            //testime ära esimese piiri
             TestNextPage(0, true); //kui lk nr on 0, siis on järgmine lk
-            TestNextPage(GetRandom.Int32(1, obj.TotalPages-1), true); //ükskõik milline lk nr 0 ja totalpage vahel peab tulema true
+            //testime ära vahepealse väärtuse
+            TestNextPage(1, true);
+            TestNextPage(GetRandom.Int32(2, obj.TotalPages-1), true); //ükskõik milline lk nr 0 ja totalpage vahel peab tulema true
+            //testime ära viimase piiri
             TestNextPage(obj.TotalPages, false); //kui lk arv on totalpage, siis ei ole järgmist lk
 
         }
@@ -86,7 +90,10 @@ namespace Abc.Tests.Infra
             }
 
             TestPreviousPage(0, false); //kui lk nr on 0, siis ei ole eelmist lk
-            TestPreviousPage(GetRandom.Int32(1, obj.TotalPages-1), true); //ükskõik milline lk nr 0 ja totalpage vahel peab tulema true
+            TestPreviousPage(1, false);
+            TestPreviousPage(2, true);
+
+            TestPreviousPage(GetRandom.Int32(2, obj.TotalPages), true); //ükskõik milline lk nr 0 ja totalpage vahel peab tulema true
             TestPreviousPage(obj.TotalPages-1, true);
         } 
         [TestMethod]
@@ -98,27 +105,27 @@ namespace Abc.Tests.Infra
         [TestMethod]
         public void GetTotalPagesTest()
         {
-            var expected = (int)Math.Ceiling(count / (double)obj.PageSize); // (double) teisendab page sizei komaga arvuks
+            var expected = (int)Math.Ceiling(_count / (double)obj.PageSize); // (double) teisendab page sizei komaga arvuks
             var totalPagesCount = obj.GetTotalPages(obj.PageSize);
             Assert.AreEqual(expected, totalPagesCount);
         }
         [TestMethod]
         public void CountTotalPagesTest()
         {
-            var expected = (int)Math.Ceiling(count / (double)obj.PageSize); // (double) teisendab page sizei komaga arvuks
-            var totalPagesCount = obj.CountTotalPages(count, obj.PageSize);
+            var expected = (int)Math.Ceiling(_count / (double)obj.PageSize); // (double) teisendab page sizei komaga arvuks
+            var totalPagesCount = obj.CountTotalPages(_count, obj.PageSize);
             Assert.AreEqual(expected, totalPagesCount);
         }
         [TestMethod]
         public void GetItemsCountTest()
         {
             var itemsCount = obj.GetItemsCount();
-            Assert.AreEqual(count, itemsCount);
+            Assert.AreEqual(_count, itemsCount);
         }
 
         private void AddItems() //kui error tuli, siis siin parameetrit polnud
         {
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < _count; i++)
             {
                 obj.Add(new Measure(GetRandom.Object<MeasureData>())).GetAwaiter();
             }

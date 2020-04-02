@@ -1,6 +1,5 @@
  using System;
  using Abc.Aids;
- using Abc.Tests.Infra;
  using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 
