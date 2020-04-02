@@ -6,7 +6,6 @@ using Abc.Infra;
 using Abc.Infra.Quantity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static Abc.Tests.Infra.BaseRepositoryTests;
 
 namespace Abc.Tests.Infra
 {
@@ -22,10 +21,7 @@ namespace Abc.Tests.Infra
 
             protected internal override Measure toDomainObject(MeasureData d) => new Measure(d);
 
-            protected override async Task<MeasureData> getData(string id)
-            {
-                return await dbSet.FirstOrDefaultAsync(m => m.Id == id);
-            }
+            protected override async Task<MeasureData> getData(string id) => await dbSet.FirstOrDefaultAsync(m => m.Id == id);
 
             protected override string GetId(Measure entity) => entity?.Data?.Id;
 

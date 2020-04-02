@@ -7,7 +7,7 @@ namespace Abc.Tests.Pages.Extensions
 {
     [TestClass]
 
-    public static class WebPageTitleForHtmlExtension
+    public static class WebPageTitleForHtmlExtensionTests
     {
 
         public static IHtmlContent WebPageTitleFor(

@@ -3,11 +3,12 @@
  using Abc.Tests.Infra;
  using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+
  namespace Abc.Tests
 {
     public abstract class BaseClassTests<TClass, TBaseClass> : BaseTests
     {
-        protected BaseRepositoryTests.TestClass obj;
+        protected TClass obj;
 
         [TestInitialize]
         public virtual void TestInitialize()

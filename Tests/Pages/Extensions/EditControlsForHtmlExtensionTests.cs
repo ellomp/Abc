@@ -9,7 +9,7 @@ namespace Abc.Tests.Pages.Extensions
 {
     [TestClass]
 
-    public static class EditControlsForHtmlExtension
+    public static class EditControlsForHtmlExtensionTests
     {
         public static IHtmlContent EditControlsFor<TModel, TResult>
             (this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression)

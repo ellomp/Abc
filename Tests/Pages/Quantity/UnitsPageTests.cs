@@ -14,33 +14,30 @@ namespace Abc.Tests.Pages.Quantity
     public class UnitsPageTests : AbstractClassTests<UnitsPage,
         BasePage<IUnitsRepository, Unit, UnitView, UnitData>>
     {
-
-        private class testClass : UnitsPage
+        private class TestClass : UnitsPage
         {
-
-            internal testClass(IUnitsRepository r, IMeasuresRepository m) : base(r, m) { }
-
+            internal TestClass(IUnitsRepository r, IMeasuresRepository m) : base(r, m) { }
         }
 
-        private class unitsRepository : BaseTestRepository<Unit, UnitData>, IUnitsRepository { }
+        private class UnitsRepository : BaseTestRepository<Unit, UnitData>, IUnitsRepository { }
 
-        private class measuresRepository : BaseTestRepository<Measure, MeasureData>, IMeasuresRepository { }
+        private class MeasuresRepository : BaseTestRepository<Measure, MeasureData>, IMeasuresRepository { }
 
-        private unitsRepository units;
-        private measuresRepository measures;
-        private MeasureData data;
+        private UnitsRepository _units;
+        private MeasuresRepository _measures;
+        private MeasureData _data;
 
         [TestInitialize]
         public override void TestInitialize()
         {
             base.TestInitialize();
-            units = new unitsRepository();
-            measures = new measuresRepository();
-            data = GetRandom.Object<MeasureData>();
-            var m = new Measure(data);
-            measures.Add(m).GetAwaiter();
+            _units = new UnitsRepository();
+            _measures = new MeasuresRepository();
+            _data = GetRandom.Object<MeasureData>();
+            var m = new Measure(_data);
+            _measures.Add(m).GetAwaiter();
             AddRandomMeasures();
-            obj = new testClass(units, measures);
+            obj = new TestClass(_units, _measures);
         }
 
         private void AddRandomMeasures()
@@ -49,7 +46,7 @@ namespace Abc.Tests.Pages.Quantity
             {
                 var d = GetRandom.Object<MeasureData>();
                 var m = new Measure(d);
-                measures.Add(m).GetAwaiter();
+                _measures.Add(m).GetAwaiter();
             }
         }
 
@@ -86,14 +83,14 @@ namespace Abc.Tests.Pages.Quantity
         [TestMethod]
         public void GetMeasureNameTest()
         {
-            var name = obj.GetMeasureName(data.Id);
-            Assert.AreEqual(data.Name, name);
+            var name = obj.GetMeasureName(_data.Id);
+            Assert.AreEqual(_data.Name, name);
         }
 
         [TestMethod]
         public void MeasuresTest()
         {
-            var list = measures.Get().GetAwaiter().GetResult();
+            var list = _measures.Get().GetAwaiter().GetResult();
             Assert.AreEqual(list.Count, obj.Measures.Count());
         }
     }

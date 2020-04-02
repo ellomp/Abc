@@ -16,9 +16,7 @@ namespace Abc.Infra
         public bool HasPreviousPage => PageIndex > 1;
         public int PageSize { get; set; } = 5; //mitu erinevatc nt aeg, mass jne tüüpi korraga lehel nähtav on
 
-        protected PaginatedRepository(DbContext c, DbSet<TData> s) : base(c, s)
-        {
-        }
+        protected PaginatedRepository(DbContext c, DbSet<TData> s) : base(c, s) { }
 
         internal int GetTotalPages(in int pageSize)
         {
@@ -32,11 +30,7 @@ namespace Abc.Infra
             return (int)Math.Ceiling(count / (double)pageSize);
         }
 
-        internal int GetItemsCount()
-        {
-            var query = base.CreateSqlQuery();
-            return query.CountAsync().Result;
-        }
+        internal int GetItemsCount() => base.CreateSqlQuery().CountAsync().Result;
 
         protected internal override IQueryable<TData> CreateSqlQuery()
         {
@@ -45,7 +39,7 @@ namespace Abc.Infra
             return query;
         }
 
-        private IQueryable<TData> AddSkipAndTake(IQueryable<TData> query)
+        internal IQueryable<TData> AddSkipAndTake(IQueryable<TData> query)
         {
             if (PageIndex < 1) return query;
             return query

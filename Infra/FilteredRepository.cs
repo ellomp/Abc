@@ -26,14 +26,14 @@ namespace Abc.Infra
             return query; //annan tagasi
         }
 
-        private IQueryable<TData> AddFixedFiltering(IQueryable<TData> query)
+        public IQueryable<TData> AddFixedFiltering(IQueryable<TData> query)
         {
             var expression = CreateFixedWhereExpression();
 
             return expression is null ? query : query.Where(expression);
         }
 
-        private Expression<Func<TData, bool>> CreateFixedWhereExpression()
+        public Expression<Func<TData, bool>> CreateFixedWhereExpression()
         {
             if (FixedFilter is null) return null;
             if (FixedValue is null) return null;

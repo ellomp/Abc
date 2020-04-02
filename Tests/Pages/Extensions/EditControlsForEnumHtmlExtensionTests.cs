@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Abc.Pages.Extensions;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,13 +9,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Abc.Tests.Pages.Extensions {
 
     [TestClass]
-    public static class EditControlsForEnumHtmlExtension {
+    public static class EditControlsForEnumHtmlExtensionTests {
 
         public static IHtmlContent EditControlsForEnum<TModel, TResult>(
             this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression) {
-            
+            //Assert.Inconclusive();
             var selectList = new SelectList(Enum.GetNames(typeof(TResult)));
-            
+
             var htmlStrings = EditControlsForEnumHtmlExtension.htmlStrings(htmlHelper, expression, selectList);
 
             return new HtmlContentBuilder(htmlStrings);

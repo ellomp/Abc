@@ -9,7 +9,7 @@ namespace Abc.Tests.Pages.Extensions
 {
     [TestClass]
 
-    public static class HypertextLinkForHtmlExtension
+    public static class HypertextLinkForHtmlExtensionTests
     {
 
         public static IHtmlContent HypertextLinkFor(

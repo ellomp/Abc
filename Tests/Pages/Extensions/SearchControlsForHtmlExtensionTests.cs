@@ -7,7 +7,7 @@ namespace Abc.Tests.Pages.Extensions
 {
     [TestClass]
 
-    public static class SearchControlsForHtmlExtension
+    public static class SearchControlsForHtmlExtensionTests
     {
         internal const string backToFullList = "Back to full list";
 

@@ -8,14 +8,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Abc.Tests.Pages.Extensions
 {
     [TestClass]
-    public static class EditControlsForDropDownHtmlExtension
+    public static class EditControlsForDropDownHtmlExtensionTests
     {
         public static IHtmlContent EditControlsForDropDown<TModel, TResult>(
             this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression,
             IEnumerable<SelectListItem> items)
         {
 
-            var htmlStrings = EditControlsForDropDownHtmlExtension.htmlStrings(htmlHelper, expression, items);
+            var htmlStrings = EditControlsForDropDownHtmlExtensionTests.htmlStrings(htmlHelper, expression, items);
 
             return new HtmlContentBuilder(htmlStrings);
         }

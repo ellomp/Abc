@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Abc.Tests.Pages.Extensions
 {
     [TestClass]
-    public class DisplayControlsForHtmlExtension : BaseTests
+    public class DisplayControlsForHtmlExtensionTests : BaseTests
     {
 
         [TestInitialize] public virtual void TestInitialize() => type = typeof(DisplayControlsForHtmlExtension);
