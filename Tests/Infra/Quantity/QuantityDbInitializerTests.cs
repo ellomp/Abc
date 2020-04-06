@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Abc.Data.Common;
-using Abc.Data.Quantity;
-using Abc.Domain.Common;
+﻿using Abc.Data.Common;
 using Abc.Infra.Quantity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Abc.Tests.Infra.Quantity
