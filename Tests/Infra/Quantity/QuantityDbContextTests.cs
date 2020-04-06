@@ -16,11 +16,11 @@ namespace Abc.Tests.Infra.Quantity
     public class QuantityDbContextTests : BaseClassTests<QuantityDbContext, DbContext>
     {
 
-        private DbContextOptions<QuantityDbContext> options;
+        private DbContextOptions<QuantityDbContext> _options;
 
-        private class testClass : QuantityDbContext
+        private class TestClass : QuantityDbContext
         {
-            public testClass(DbContextOptions<QuantityDbContext> o) : base(o) { }
+            public TestClass(DbContextOptions<QuantityDbContext> o) : base(o) { }
 
             public ModelBuilder RunOnModelCreating()
             {
@@ -37,14 +37,14 @@ namespace Abc.Tests.Infra.Quantity
         public override void TestInitialize()
         {
             base.TestInitialize();
-            options = new DbContextOptionsBuilder<QuantityDbContext>().UseInMemoryDatabase("TestDb").Options;
-            obj = new QuantityDbContext(options);
+            _options = new DbContextOptionsBuilder<QuantityDbContext>().UseInMemoryDatabase("TestDb").Options;
+            obj = new QuantityDbContext(_options);
         }
 
         [TestMethod]
         public void InitializeTablesTest()
         {
-            static void testKey<T>(IMutableEntityType entity, params Expression<Func<T, object>>[] values)
+            static void TestKey<T>(IMutableEntityType entity, params Expression<Func<T, object>>[] values)
             {
                 var key = entity.FindPrimaryKey();
 
@@ -57,24 +57,24 @@ namespace Abc.Tests.Infra.Quantity
                     }
             }
 
-            static void testEntity<T>(ModelBuilder b, params Expression<Func<T, object>>[] values)
+            static void TestEntity<T>(ModelBuilder b, params Expression<Func<T, object>>[] values)
             {
                 var name = typeof(T).FullName ?? string.Empty;
                 var entity = b.Model.FindEntityType(name);
                 Assert.IsNotNull(entity, name);
-                testKey(entity, values);
+                TestKey(entity, values);
             }
 
             QuantityDbContext.InitializeTables(null);
-            var o = new testClass(options);
+            var o = new TestClass(_options);
             var builder = o.RunOnModelCreating();
             QuantityDbContext.InitializeTables(builder);
-            testEntity<SystemOfUnitsData>(builder);
-            testEntity<MeasureTermData>(builder, x => x.TermId, x => x.MasterId);
-            testEntity<MeasureData>(builder);
-            testEntity<UnitData>(builder);
-            testEntity<UnitTermData>(builder, x => x.TermId, x => x.MasterId);
-            testEntity<UnitFactorData>(builder, x => x.UnitId, x => x.SystemOfUnitsId);
+            TestEntity<SystemOfUnitsData>(builder);
+            TestEntity<MeasureTermData>(builder, x => x.TermId, x => x.MasterId);
+            TestEntity<MeasureData>(builder);
+            TestEntity<UnitData>(builder);
+            TestEntity<UnitTermData>(builder, x => x.TermId, x => x.MasterId);
+            TestEntity<UnitFactorData>(builder, x => x.UnitId, x => x.SystemOfUnitsId);
         }
 
         [TestMethod]
