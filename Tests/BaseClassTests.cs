@@ -16,15 +16,19 @@
         }
 
         [TestMethod]
-        public void InInheritedTest()
+        public void IsInheritedTest()
         {
-            Assert.AreEqual(typeof(TBaseClass), type.BaseType);
+            Assert.AreEqual(GetBaseClass(), type.BaseType);
+        }
+
+        protected virtual Type GetBaseClass()
+        {
+            return typeof(TBaseClass);
         }
 
         protected static void IsNullableProperty<T>(Func<T> get, Action<T> set)
         {
             IsProperty(get, set);
-            var d = (T)GetRandom.Value(typeof(T));
             set(default);
             Assert.IsNull(get());
         }
@@ -46,5 +50,24 @@
             var actual = property.GetValue(o);
             Assert.AreEqual(expected, actual);
         }
+        protected static void IsNullableProperty(object o, string name, Type type)
+        {
+            var property = o.GetType().GetProperty(name); //saan tüübi
+            Assert.IsNotNull(property);
+            Assert.AreEqual(type, property.PropertyType); //kontorllin kas prop tüüp on õige
+            Assert.IsTrue(property.CanWrite);
+            Assert.IsTrue(property.CanRead);
+            property.SetValue(o, null);
+            var actual = property.GetValue(o); //loen prop väärtuse sellest objektist
+            Assert.AreEqual(null, actual);
+        }
+        protected static void IsPropertyTypeOf(object o, string name, Type expected)
+        {
+            var property = o.GetType().GetProperty(name);
+            Assert.IsNotNull(property);
+            Assert.AreEqual(expected, property.PropertyType);
+        }
+
     }
+
 }
