@@ -26,11 +26,22 @@ namespace Abc.Tests.Infra.Quantity
             _db = new QuantityDbContext(options);
             obj = new MeasuresRepository(_db);
             _count = GetRandom.UInt8(20, 40);
-
-            foreach (var e in _db.Measures)//see loop teeb andmebaasi tühjaks, vajalik Count total items testclassi jaoks, sest luges väärtuseid topelt
-                _db.Entry(e).State = EntityState.Deleted;
-
+            CleanDbSet();
             AddItems();
+        }
+
+        [TestCleanup]
+        public void TestCleanup() //kui ta midagi teeb, siis laseb ära kustutdaa
+        {
+            CleanDbSet();
+        }
+
+        private void CleanDbSet()
+        {
+            foreach (var e in _db.Measures
+            ) //see loop teeb andmebaasi tühjaks, vajalik Count total items testclassi jaoks, sest luges väärtuseid topelt
+                _db.Entry(e).State = EntityState.Deleted;
+            _db.SaveChanges();
         }
 
         private void AddItems()
