@@ -1,7 +1,10 @@
 ﻿using System;
 using Abc.Aids;
 using Abc.Data.Common;
+using Abc.Data.Quantity;
 using Abc.Domain.Common;
+using Abc.Domain.Quantity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Abc.Tests.Infra
@@ -15,16 +18,42 @@ namespace Abc.Tests.Infra
     {
         private TData data;
         protected TRepository obj;
+        protected DbContext _db;
+        protected int _count;
+        protected DbSet<TData> dbSet;
 
         public virtual void TestInitialize()
         {
             type = typeof(TRepository);
-            //var options = new DbContextOptionsBuilder<QuantityDbContext>()
-            //    .UseInMemoryDatabase("TestDb")
-            //    .Options;
-            //var c = new QuantityDbContext(options);
-            //obj = new testClass(c, c.Measures);
             data = GetRandom.Object<TData>();
+            _count = GetRandom.UInt8(20, 40);
+            CleanDbSet();
+            AddItems();
+        }
+        protected void GetListTest()
+        {
+            obj.PageIndex = GetRandom.Int32(2, obj.TotalPages - 1);
+            var l = obj.Get().GetAwaiter().GetResult();
+            Assert.AreEqual(obj.PageSize, l.Count);
+        } 
+
+        [TestCleanup]
+        public void TestCleanup() //kui ta midagi teeb, siis laseb ära kustutdaa
+        {
+            CleanDbSet();
+        }
+
+        protected void CleanDbSet()
+        {
+            foreach (var e in dbSet) //see loop teeb andmebaasi tühjaks, vajalik Count total items testclassi jaoks, sest luges väärtuseid topelt
+                _db.Entry(e).State = EntityState.Deleted;
+            _db.SaveChanges();
+        }
+
+        protected void AddItems()
+        {
+            for (int i = 0; i < _count; i++)
+                obj.Add(GetObject(GetRandom.Object<TData>())).GetAwaiter();
         }
 
         [TestMethod] public void IsSealedTest() => Assert.IsTrue(type.IsSealed);
@@ -36,8 +65,6 @@ namespace Abc.Tests.Infra
         protected abstract Type GetBaseType();
 
         [TestMethod] public void GetTest() => GetListTest();
-
-        protected abstract void GetListTest();
 
         [TestMethod] public void GetByIdTest() => AddTest();
 
