@@ -26,7 +26,6 @@ namespace Abc.Tests.Facade.Quantity
             var data = MeasureViewFactory.Create(view).Data;
 
             ArePropertyValuesEqualTest(view, data);
-
         }
 
         [TestMethod]
