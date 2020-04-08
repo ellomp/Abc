@@ -1,31 +1,27 @@
 ﻿using System.Collections.Generic;
+using Abc.Aids;
+using Abc.Facade.Quantity;
+using Abc.Pages.Extensions;
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Abc.Tests.Pages.Extensions
-{
-    [TestClass]
+namespace Abc.Tests.Pages.Extensions {
 
-    public static class WebPageTitleForHtmlExtensionTests
-    {
+    [TestClass] public class WebPageTitleForHtmlExtensionTests : BaseTests {
 
-        public static IHtmlContent WebPageTitleFor(
-            this IHtmlHelper htmlHelper, string title)
-        {
-            htmlHelper.ViewData["Title"] = title;
-            var s = htmlStrings(title);
-            return new HtmlContentBuilder(s);
+        [TestInitialize] public virtual void TestInitialize() => type = typeof(WebPageTitleForHtmlExtension);
+
+        [TestMethod] public void WebPageTitleForTest() {
+            var obj = new htmlHelperMock<UnitView>().WebPageTitleFor(GetRandom.String());
+            Assert.IsInstanceOfType(obj, typeof(HtmlContentBuilder));
         }
 
-        internal static List<object> htmlStrings(string title)
-        {
-            return new List<object> {
-                new HtmlString("<h1>"),
-                new HtmlString(title),
-                new HtmlString("</h1>")
-            };
+        [TestMethod] public void HtmlStringsTest() {
+            var expected = new List<string> {"<h1>", GetRandom.String(), "</h1>"};
+            var actual = WebPageTitleForHtmlExtension.htmlStrings(expected[1]);
+            TestHtml.Strings(actual, expected);
         }
 
     }
+
 }

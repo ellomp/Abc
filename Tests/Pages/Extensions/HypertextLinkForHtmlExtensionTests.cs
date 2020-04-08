@@ -1,56 +1,32 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using Abc.Aids;
+using Abc.Facade.Quantity;
 using Abc.Pages.Extensions;
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Abc.Tests.Pages.Extensions
-{
-    [TestClass]
+namespace Abc.Tests.Pages.Extensions {
 
-    public static class HypertextLinkForHtmlExtensionTests
-    {
+    [TestClass] public class HypertextLinkForHtmlExtensionTests : BaseTests {
 
-        public static IHtmlContent HypertextLinkFor(
-            this IHtmlHelper htmlHelper, string text, params Link[] items)
-        {
-            var s = htmlStrings(text, items);
+        [TestInitialize] public virtual void TestInitialize() => type = typeof(HypertextLinkForHtmlExtension);
 
-            return new HtmlContentBuilder(s);
+        [TestMethod] public void HypertextLinkForTest() {
+            var s = GetRandom.String();
+            var items = new[] {new Link("AA", "AAA"), new Link("BB", "BBB")};
+            var obj = new htmlHelperMock<UnitView>().HypertextLinkFor(s, items);
+            Assert.IsInstanceOfType(obj, typeof(HtmlContentBuilder));
         }
 
-        internal static List<object> htmlStrings(string text, Link[] items)
-        {
-            var l = new List<object> {
-                new HtmlString("<p>"),
-                new HtmlString($"<a>{text}</a>")
+        [TestMethod] public void HtmlStringsTest() {
+            var s = GetRandom.String();
+            var items = new[] {new Link("AA", "AAA"), new Link("BB", "BBB")};
+            var expected = new List<string> {
+                "<p>", $"<a>{s}</a>", $"<a> </a><a href=\"AAA\">AA</a>",
+                $"<a> </a><a href=\"BBB\">BB</a>", "</p>"
             };
-
-            l.AddRange(
-                items.Select(item => new HtmlString($"<a> </a><a href=\"{item.Url}\">{item.DisplayName}</a>")));
-
-            l.Add(new HtmlString("</p>"));
-
-            return l;
-        }
-
-        public static IHtmlContent HypertextLinkFor(
-            this IHtmlHelper htmlHelper, params Link[] items)
-        {
-            var s = htmlStrings(items);
-
-            return new HtmlContentBuilder(s);
-        }
-
-        internal static List<object> htmlStrings(Link[] items)
-        {
-            var l = new List<object>();
-
-            l.AddRange(
-                items.Select(item => new HtmlString($"<a href=\"{item.Url}\">{item.DisplayName}</a>")));
-
-            return l;
+            var actual = HypertextLinkForHtmlExtension.htmlStrings(s, items);
+            TestHtml.Strings(actual, expected);
         }
 
     }

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Abc.Pages.Extensions
-{
-    public static class DisplayControlsForHtmlExtension
-    {
+namespace Abc.Pages.Extensions {
+
+    public static class DisplayControlsForHtmlExtension {
+
         public static IHtmlContent DisplayControlsFor<TModel, TResult>(
-            this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression)
-        {
+            this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression) {
 
             var s = htmlStrings(htmlHelper, expression);
 
@@ -18,16 +17,14 @@ namespace Abc.Pages.Extensions
         }
 
         public static IHtmlContent DisplayControlsFor<TModel, TResult>(this IHtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, TResult>> expression, string value)
-        {
+            Expression<Func<TModel, TResult>> expression, string value) {
             var s = htmlStrings(htmlHelper, expression, value);
 
             return new HtmlContentBuilder(s);
         }
 
         internal static List<object> htmlStrings<TModel, TResult>(IHtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, TResult>> expression)
-        {
+            Expression<Func<TModel, TResult>> expression) {
             return new List<object> {
                 new HtmlString("<dt class=\"col-sm-2\">"),
                 htmlHelper.DisplayNameFor(expression),
@@ -38,9 +35,8 @@ namespace Abc.Pages.Extensions
             };
         }
 
-        public static List<object> htmlStrings<TModel, TResult>(IHtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, TResult>> expression, string value)
-        {
+        private static List<object> htmlStrings<TModel, TResult>(IHtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TResult>> expression, string value) {
             return new List<object> {
                 new HtmlString("<dt class=\"col-sm-2\">"),
                 htmlHelper.DisplayNameFor(expression),

@@ -1,0 +1,13 @@
+﻿@page
+@using Abc.Pages.Extensions
+@model Abc.Soft.Areas.Quantity.Pages.MeasureTerms.CreateModel
+
+@{
+    Layout = "_Create";
+}
+<body>
+        @Html.EditControlsFor(model => model.Item.MasterId)
+        @Html.EditControlsFor(model => model.Item.TermId)
+        @Html.EditControlsFor(model => model.Item.Power)
+
+</body>

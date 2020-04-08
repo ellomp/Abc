@@ -1,155 +1,97 @@
-﻿using Abc.Data.Quantity;
+﻿using Abc.Aids;
+using Abc.Data.Quantity;
 using Abc.Domain.Quantity;
 using Abc.Facade.Quantity;
 using Abc.Pages;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Abc.Tests.Pages { 
+namespace Abc.Tests.Pages {
 
     [TestClass]
-    public class BasePageTests : AbstractClassTests<BasePage<IMeasuresRepository, Measure, MeasureView, MeasureData>,
+    public class BasePageTests : AbstractPageTests<BasePage<IMeasuresRepository, Measure, MeasureView, MeasureData>,
         PageModel> {
+
 
         [TestInitialize] public override void TestInitialize() {
             base.TestInitialize();
-            obj = new TestClass(new TestRepository());
-        }
-
-
-        private class TestClass : BasePage<IMeasuresRepository, Measure, MeasureView, MeasureData> {
-
-            protected internal TestClass(IMeasuresRepository r) : base(r) => PageTitle = "Measures";
-
-            public override string ItemId => Item?.Id ?? string.Empty;
-
-            protected internal override string GetPageUrl() => "/Quantity/Measures";
-
-            protected internal override Measure ToObject(MeasureView view) => MeasureViewFactory.Create(view);
-
-            protected internal override MeasureView ToView(Measure obj) => MeasureViewFactory.Create(obj);
-
-        }
-        private class TestRepository : BaseTestRepository<Measure, MeasureData>, IMeasuresRepository { }
-
-        [TestMethod] public void CreateBasePageWithRepositoryTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void ItemTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void ItemsTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void ItemIdTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void PageTitleTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void PageSubTitleTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void IndexUrlTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void GetIndexUrlTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void PageUrlTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void GetPageUrlTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void GetPageSubTitleTest() {
-            Assert.Inconclusive();
+            obj = new TestClass(db);
         }
 
         [TestMethod] public void FixedValueTest() {
-            Assert.Inconclusive();
+            var s = GetRandom.String();
+            obj.FixedValue = s;
+            Assert.AreEqual(s, db.FixedValue);
+            Assert.AreEqual(s, obj.FixedValue);
         }
 
         [TestMethod] public void FixedFilterTest() {
-            Assert.Inconclusive();
+            var s = GetRandom.String();
+            obj.FixedFilter = s;
+            Assert.AreEqual(s, db.FixedFilter);
+            Assert.AreEqual(s, obj.FixedFilter);
+        }
+
+        [TestMethod] public void SetFixedFilterTest() {
+            var filter = GetRandom.String();
+            var value = GetRandom.String();
+            obj.setFixedFilter(filter, value);
+            Assert.AreEqual(filter, obj.FixedFilter);
+            Assert.AreEqual(value, obj.FixedValue);
         }
 
         [TestMethod] public void SortOrderTest() {
-            Assert.Inconclusive();
+            var s = GetRandom.String();
+            obj.SortOrder = s;
+            Assert.AreEqual(s, db.SortOrder);
+            Assert.AreEqual(s, obj.SortOrder);
+        }
+
+        [TestMethod] public void GetSortOrderTest() {
+            void Test(string sortOrder, string name, bool isDesc) {
+                obj.SortOrder = sortOrder;
+                var actual = obj.getSortOrder(name);
+                var expected = isDesc ? name + "_desc" : name;
+                Assert.AreEqual(expected, actual);
+            }
+            Test(null, GetRandom.String(), false);
+            Test(GetRandom.String(), GetRandom.String(), false);
+            var s = GetRandom.String();
+            Test(s, s, true);
+            Test(s+"_desc", s, false);
         }
 
         [TestMethod] public void SearchStringTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void PageIndexTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void HasPreviousPageTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void HasNextPageTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void TotalPagesTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void AddObjectTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void ToObjectTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void UpdateObjectTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void GetObjectTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void ToViewTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void DeleteObjectTest() {
-            Assert.Inconclusive();
+            var s = GetRandom.String();
+            obj.SearchString = s;
+            Assert.AreEqual(s, db.SearchString);
+            Assert.AreEqual(s, obj.SearchString);
         }
 
         [TestMethod] public void GetSortStringTest() {
-            Assert.Inconclusive();
-        }
-
-        [TestMethod] public void GetListTest() {
-            Assert.Inconclusive();
+            const string page = "xxx/yyy";
+            obj.SortOrder = "Code";
+            obj.SearchString = "AAA";
+            obj.FixedFilter = "BBB";
+            obj.FixedValue = "CCC";
+            var sortString = obj.GetSortString(x=>x.Code, page);
+            var s = "xxx/yyy?sortOrder=Code_desc&currentFilter=AAA&fixedFilter=BBB&fixedValue=CCC";
+            Assert.AreEqual(s, sortString);
         }
 
         [TestMethod] public void GetSearchStringTest() {
-            Assert.Inconclusive();
+            void Test(string filter, string searchString, int? pageIndex, bool isFirst) {
+                var expectedSearchString = isFirst ? searchString: filter;
+                var expectedIndex = isFirst ? 1 : pageIndex;
+                var actual = BasePage<IMeasuresRepository, Measure, MeasureView, MeasureData>.getSearchString(filter, searchString, ref pageIndex);
+                Assert.AreEqual(expectedSearchString, actual);
+                Assert.AreEqual(expectedIndex, pageIndex);
+            }
+            Test(GetRandom.String(), GetRandom.String(), GetRandom.UInt8(3), true);
+            Test(GetRandom.String(), null, GetRandom.UInt8(3), false);
         }
-        [TestMethod]
-        public void GetListNoParamsTest()
-        {
-            Assert.Inconclusive();
-        }
+
 
     }
 
 }
-

@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Abc.Tests.Infra.Quantity
 {
     [TestClass]
-    public class SystemsOfUnitsRepositoryTests : RepositoryTests<SystemsOfUnitsRepository, SystemOfUnits, SystemOfUnitsData>
+    public class SystemsOfUnitsRepositoryTests : RepositoryTests<SystemOfUnitsRepository, SystemOfUnits, SystemOfUnitsData>
     {
 
         [TestInitialize]
@@ -20,7 +20,7 @@ namespace Abc.Tests.Infra.Quantity
                 .Options;
             _db = new QuantityDbContext(options);
             dbSet = ((QuantityDbContext)_db).SystemsOfUnits;
-            obj = new SystemsOfUnitsRepository((QuantityDbContext)_db);
+            obj = new SystemOfUnitsRepository((QuantityDbContext)_db);
 
             base.TestInitialize();
 

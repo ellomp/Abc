@@ -1,39 +1,42 @@
 ﻿using System.Collections.Generic;
+using Abc.Facade.Quantity;
+using Abc.Pages.Extensions;
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Abc.Tests.Pages.Extensions
-{
-    [TestClass]
+namespace Abc.Tests.Pages.Extensions {
 
-    public static class SearchControlsForHtmlExtensionTests
-    {
-        internal const string backToFullList = "Back to full list";
+    [TestClass] public class SearchControlsForHtmlExtensionTests : BaseTests {
 
-        public static IHtmlContent SearchControlsFor(
-            this IHtmlHelper htmlHelper, string filter, string linkToFullList, string text = backToFullList)
-        {
-            var s = htmlStrings(filter, linkToFullList, text);
-            return new HtmlContentBuilder(s);
+        private const string Filter = "filter";
+        private const string LinkToFullList = "url";
+        private const string Text = "text";
+
+        [TestInitialize] public virtual void TestInitialize() => type = typeof(SearchControlsForHtmlExtension);
+
+        [TestMethod] public void SearchControlsForTest() {
+            var obj = new htmlHelperMock<UnitView>().SearchControlsFor(Filter, LinkToFullList, Text);
+            Assert.IsInstanceOfType(obj, typeof(HtmlContentBuilder));
         }
 
-        internal static List<object> htmlStrings(string filter, string linkToFullList, string text)
-        {
-            var htmlStrings = new List<object> {
-                new HtmlString("<form asp-action=\"./Index\" method=\"get\">"),
-                new HtmlString("<div class=\"form-inline col-md-6\">"),
-                new HtmlString("Find by:"),
-                new HtmlString("&nbsp;"),
-                new HtmlString($"<input class=\"form-control\" type=\"text\" name=\"SearchString\" value=\"{filter}\" />"),
-                new HtmlString("&nbsp;"),
-                new HtmlString("<input type=\"submit\" value=\"Search\" class=\"btn btn-default\" />"),
-                new HtmlString("&nbsp;"),
-                new HtmlString($"<a href=\"{linkToFullList}\">{text}</a>"),
-                new HtmlString("</div>"),
-                new HtmlString("</form>")
+        [TestMethod] public void HtmlStringsTest() {
+            var expected = new List<string> {
+                "<form asp-action=\"./Index\" method=\"get\">",
+                "<div class=\"form-inline col-md-6\">",
+                "Find by:",
+                "&nbsp;",
+                $"<input class=\"form-control\" type=\"text\" name=\"SearchString\" value=\"{Filter}\" />",
+                "&nbsp;",
+                "<input type=\"submit\" value=\"Search\" class=\"btn btn-default\" />",
+                "&nbsp;",
+                $"<a href=\"{LinkToFullList}\">{Text}</a>",
+                "</div>",
+                "</form>"
             };
-            return htmlStrings;
+            var actual = SearchControlsForHtmlExtension.htmlStrings(Filter, LinkToFullList, Text);
+            TestHtml.Strings(actual, expected);
         }
+
     }
+
 }

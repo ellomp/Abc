@@ -21,7 +21,6 @@ namespace Abc.Tests.Facade.Quantity
 
         [TestMethod] public void TermIdTest() => IsNullableProperty(() => obj.TermId, x => obj.TermId = x);
 
-        [TestMethod] public void MasterIdTest() => IsNullableProperty(() => obj.MasterId, x => obj.MasterId = x);
     }
 
 }

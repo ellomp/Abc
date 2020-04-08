@@ -10,18 +10,14 @@ namespace Abc.Tests.Pages.Quantity
 {
     [TestClass]
     public class MeasuresPageTests : AbstractClassTests<MeasuresPage,
-        BasePage<IMeasuresRepository, Measure, MeasureView, MeasureData>>
+        CommonPage<IMeasuresRepository, Measure, MeasureView, MeasureData>>
     {
         private class TestClass : MeasuresPage
         {
-            internal TestClass(IMeasuresRepository r) : base(r)
-            {
-            }
+            internal TestClass(IMeasuresRepository r) : base(r) { }
         }
 
-        private class TestRepository : BaseTestRepository<Measure, MeasureData>, IMeasuresRepository
-        {
-        }
+        private class TestRepository : BaseTestRepository<Measure, MeasureData>, IMeasuresRepository { }
 
         [TestInitialize]
         public override void TestInitialize()
@@ -39,7 +35,6 @@ namespace Abc.Tests.Pages.Quantity
             Assert.AreEqual(item.Id, obj.ItemId);
             obj.Item = null;
             Assert.AreEqual(string.Empty, obj.ItemId);
-
         }
 
         [TestMethod]

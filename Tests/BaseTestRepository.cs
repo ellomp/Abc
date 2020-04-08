@@ -9,7 +9,7 @@ namespace Abc.Tests
         where TObj : Entity<TData> 
         where TData : UniqueEntityData, new()
     {
-        private readonly List<TObj> list;
+        internal readonly List<TObj> list;
         public BaseTestRepository()
         {
             list=new List<TObj>();
