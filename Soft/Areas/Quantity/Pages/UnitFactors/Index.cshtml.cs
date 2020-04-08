@@ -4,18 +4,22 @@ using Abc.Pages.Quantity;
 
 namespace Abc.Soft.Areas.Quantity.Pages.UnitFactors
 {
+
     public class IndexModel : UnitFactorsPage
     {
-        public IndexModel(IUnitFactorsRepository r) : base(r) { }
+
+        public IndexModel(IUnitFactorsRepository r, IUnitsRepository u, ISystemOfUnitsRepository s) : base(r, u, s) { }
 
         public async Task OnGetAsync(string sortOrder,
             string currentFilter, string searchString, int? pageIndex,
             string fixedFilter, string fixedValue)
         {
-            FixedFilter = fixedFilter;
-            FixedValue = fixedValue;
-            await GetList(sortOrder, currentFilter, searchString, pageIndex, fixedFilter, fixedValue);
+
+            await GetList(sortOrder, currentFilter, searchString, pageIndex,
+                fixedFilter, fixedValue);
+
         }
+
     }
+
 }
- 

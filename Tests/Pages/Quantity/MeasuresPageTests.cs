@@ -14,17 +14,29 @@ namespace Abc.Tests.Pages.Quantity
     {
         private class TestClass : MeasuresPage
         {
-            internal TestClass(IMeasuresRepository r) : base(r) { }
+            internal TestClass(IMeasuresRepository r, IMeasureTermsRepository t) : base(r, t) { }
         }
 
-        private class TestRepository : BaseTestRepository<Measure, MeasureData>, IMeasuresRepository { }
+        private class TestRepository : BaseTestRepositoryForUniqueEntity<Measure, MeasureData>, IMeasuresRepository { }
+        private class TermRepository : BaseTestRepositoryForPeriodEntity<MeasureTerm, MeasureTermData>, IMeasureTermsRepository {
+            protected override bool IsThis(MeasureTerm entity, string id)
+            {
+                return true;
+            }
+
+            protected override string GetId(MeasureTerm entity)
+            {
+                return string.Empty;
+            }
+        }
 
         [TestInitialize]
         public override void TestInitialize()
         {
             base.TestInitialize();
             var r = new TestRepository();
-            obj = new TestClass(r);
+            var t = new TermRepository();
+            obj = new TestClass(r, t);
         }
 
         [TestMethod]
@@ -37,26 +49,35 @@ namespace Abc.Tests.Pages.Quantity
             Assert.AreEqual(string.Empty, obj.ItemId);
         }
 
-        [TestMethod]
-        public void PageTitleTest() => Assert.AreEqual("Measures", obj.PageTitle);
+        [TestMethod] public void PageTitleTest() => Assert.AreEqual("Measures", obj.PageTitle);
 
-        [TestMethod]
-        public void PageUrlTest() => Assert.AreEqual("/Quantity/Measures", obj.PageUrl);
+        [TestMethod] public void PageUrlTest() => Assert.AreEqual("/Quantity/Measures", obj.PageUrl);
 
-
-        [TestMethod]
-        public void ToObjectTest()
+        [TestMethod] public void ToObjectTest()
         {
             var view = GetRandom.Object<MeasureView>();
             var o = obj.ToObject(view);
             ArePropertyValuesEqualTest(view, o.Data);
         }
-        [TestMethod]
-        public void ToViewTest()
+        [TestMethod] public void ToViewTest()
         {
             var data = GetRandom.Object<MeasureData>();
             var view = obj.ToView(new Measure(data));
             ArePropertyValuesEqualTest(view, data);
         }
+
+        [TestMethod] public void LoadDetailsTest()
+        {
+            var v = GetRandom.Object<MeasureView>();
+            obj.LoadDetails(v);
+            Assert.IsNotNull(obj.Terms);
+        }
+
+        [TestMethod] public void TermsTest()
+        {
+            IsReadOnlyProperty(obj, nameof(obj.Terms), obj.Terms);
+        }
     }
+
+   
 }

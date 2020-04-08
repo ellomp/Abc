@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Abc.Soft.Areas.Quantity.Pages.UnitFactors
 {
+
     public class EditModel : UnitFactorsPage
     {
-        public EditModel(IUnitFactorsRepository r) : base(r) { }
+        public EditModel(IUnitFactorsRepository r, IUnitsRepository u, ISystemOfUnitsRepository s) : base(r, u, s) { }
 
         public async Task<IActionResult> OnGetAsync(string id, string fixedFilter, string fixedValue)
         {

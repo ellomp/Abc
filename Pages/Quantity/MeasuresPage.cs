@@ -17,6 +17,8 @@ namespace Abc.Pages.Quantity
             Terms = new List<MeasureTermView>();
             terms = t;
         }
+        public IList<MeasureTermView> Terms { get; }
+
 
         public override string ItemId => Item?.Id ?? string.Empty;
 
@@ -26,7 +28,6 @@ namespace Abc.Pages.Quantity
 
         protected internal override MeasureView ToView(Measure obj) => MeasureViewFactory.Create(obj);
 
-        public IList<MeasureTermView> Terms { get; }
 
         public void LoadDetails(MeasureView item)
         {

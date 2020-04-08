@@ -5,14 +5,14 @@ using Abc.Domain.Common;
 
 namespace Abc.Tests
 {
-    internal class BaseTestRepository<TObj, TData> 
-        where TObj : Entity<TData> 
-        where TData : UniqueEntityData, new()
+    internal abstract class BaseTestRepositoryForPeriodEntity<TObj, TData>
+        where TObj : Entity<TData>
+        where TData : PeriodData, new()
     {
         internal readonly List<TObj> list;
-        public BaseTestRepository()
+        public BaseTestRepositoryForPeriodEntity()
         {
-            list=new List<TObj>();
+            list = new List<TObj>();
         }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
@@ -33,15 +33,17 @@ namespace Abc.Tests
         public async Task<TObj> Get(string id)
         {
             await Task.CompletedTask; //feigime midagi
-            return list.Find(x => x.Data.Id == id);
+            return list.Find(x => IsThis(x, id));
         }
 
         public async Task Delete(string id)
         {
             await Task.CompletedTask; //feigime midagi
-            var obj = list.Find(x=>x.Data.Id == id);
+            var obj = list.Find(x => IsThis(x, id));
             list.Remove(obj);
         }
+
+        protected abstract bool IsThis(TObj entity, string id);
 
         public async Task Add(TObj obj)
         {
@@ -51,8 +53,10 @@ namespace Abc.Tests
 
         public async Task Update(TObj obj)
         {
-            await Delete(obj.Data.Id);
+            await Delete(GetId(obj));
             list.Add(obj);
         }
+
+        protected abstract string GetId(TObj entity);
     }
 }

@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Abc.Soft.Areas.Quantity.Pages.UnitFactors
 {
+
     public class CreateModel : UnitFactorsPage
     {
-        public CreateModel(IUnitFactorsRepository r) : base(r) { }
+        public CreateModel(IUnitFactorsRepository r, IUnitsRepository u, ISystemOfUnitsRepository s) : base(r, u, s) { }
+
         public IActionResult OnGet(string fixedFilter, string fixedValue)
         {
             FixedFilter = fixedFilter;
@@ -15,10 +17,6 @@ namespace Abc.Soft.Areas.Quantity.Pages.UnitFactors
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string fixedFilter, string fixedValue)
-        {
-            if (!await AddObject(fixedFilter, fixedValue)) return Page();
-            return Redirect(IndexUrl);
-        }
+        public async Task<IActionResult> OnPostAsync(string fixedFilter, string fixedValue) => !await AddObject(fixedFilter, fixedValue) ? (IActionResult) Page() : Redirect(IndexUrl);
     }
 }

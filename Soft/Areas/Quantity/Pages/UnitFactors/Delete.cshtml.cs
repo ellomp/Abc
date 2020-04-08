@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Abc.Soft.Areas.Quantity.Pages.UnitFactors
 {
+
     public class DeleteModel : UnitFactorsPage
     {
-        public DeleteModel(IUnitFactorsRepository r) : base(r) { }
+
+        public DeleteModel(IUnitFactorsRepository r, IUnitsRepository u, ISystemOfUnitsRepository s) : base(r, u, s) { }
 
         public async Task<IActionResult> OnGetAsync(string id, string fixedFilter, string fixedValue)
         {
@@ -22,5 +24,7 @@ namespace Abc.Soft.Areas.Quantity.Pages.UnitFactors
 
             return Redirect(IndexUrl);
         }
+
     }
+
 }

@@ -26,7 +26,7 @@ namespace Abc.Tests.Pages {
 
         }
 
-        internal class TestRepository : BaseTestRepository<Measure, MeasureData>, IMeasuresRepository { }
+        internal class TestRepository : BaseTestRepositoryForUniqueEntity<Measure, MeasureData>, IMeasuresRepository { }
 
         [TestInitialize]
         public override void TestInitialize()
