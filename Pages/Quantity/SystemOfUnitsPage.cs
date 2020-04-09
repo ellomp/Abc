@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using Abc.Data.Quantity;
+﻿using Abc.Data.Quantity;
 using Abc.Domain.Quantity;
 using Abc.Facade.Quantity;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Abc.Pages.Quantity {
 
