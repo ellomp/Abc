@@ -33,7 +33,6 @@ namespace Abc.Pages.Quantity
             Terms.Clear();
 
             if (item is null) return;
-            //loe ainult olemasoleva MasterIdga asjad sisse
             terms.FixedFilter = GetMember.Name<MeasureTermData>(x => x.MasterId);
             terms.FixedValue = item.Id;
             var list = terms.Get().GetAwaiter().GetResult();

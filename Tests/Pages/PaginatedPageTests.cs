@@ -70,5 +70,10 @@ namespace Abc.Tests.Pages {
                 Assert.AreEqual(i + 1, l.Count);
             }
         }
+
+        [TestMethod] public void SelectedIdTest()
+        {
+            IsProperty(() => obj.SelectedId, x => obj.SelectedId = x);
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace Abc.Tests.Infra.Quantity
             where T : PeriodData, new() => dbSet.CountAsync().GetAwaiter().GetResult();
 
 
-        [TestMethod] public void MeasuresTest() => Assert.AreEqual(12, getCount(db.Measures));
+        [TestMethod] public void MeasuresTest() => Assert.AreEqual(12, getCount(db.Measures)); 
         [TestMethod] public void UnitsTest() => Assert.AreEqual(125, getCount(db.Units));
         [TestMethod] public void MeasureTermsTest() => Assert.AreEqual(2, getCount(db.MeasureTerms));
         [TestMethod] public void UnitTermsTest() => Assert.AreEqual(39, getCount(db.UnitTerms));

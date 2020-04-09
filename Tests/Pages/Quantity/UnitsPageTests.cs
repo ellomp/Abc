@@ -16,7 +16,6 @@ namespace Abc.Tests.Pages.Quantity
     {
         private class TestClass : UnitsPage
         {
-            // internal TestClass(IUnitsRepository r, IMeasuresRepository m) : base(r, m) { }
             internal TestClass(IUnitsRepository r, IMeasuresRepository m) : base(r, m, null, null) { }
         }
 
@@ -81,6 +80,18 @@ namespace Abc.Tests.Pages.Quantity
         }
 
         [TestMethod]
+        public void LoadDetailsTest()
+        {
+            var v = GetRandom.Object<UnitView>();
+            obj.LoadDetails(v);
+            Assert.IsNotNull(obj.Terms);
+
+            var f = GetRandom.Object<UnitView>();
+            obj.LoadDetails(f);
+            Assert.IsNotNull(obj.Factors);
+        }
+
+        [TestMethod]
         public void GetMeasureNameTest()
         {
             var name = obj.GetMeasureName(_data.Id);
@@ -92,6 +103,18 @@ namespace Abc.Tests.Pages.Quantity
         {
             var list = _measures.Get().GetAwaiter().GetResult();
             Assert.AreEqual(list.Count, obj.Measures.Count());
+        }
+
+        [TestMethod]
+        public void TermsTest()
+        {
+            IsReadOnlyProperty(obj, nameof(obj.Terms), obj.Terms);
+        }
+
+        [TestMethod]
+        public void FactorsTest()
+        {
+            IsReadOnlyProperty(obj, nameof(obj.Factors), obj.Factors);
         }
     }
 }

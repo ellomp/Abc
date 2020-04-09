@@ -72,6 +72,12 @@ namespace Abc.Tests.Pages.Quantity
         {
             IsReadOnlyProperty(obj, nameof(obj.Terms), obj.Terms);
         }
+
+        [TestMethod]
+        public void FactorsTest()
+        {
+            IsReadOnlyProperty(obj, nameof(obj.Terms), obj.Terms);
+        }
     }
 
    

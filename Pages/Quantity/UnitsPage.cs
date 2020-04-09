@@ -82,7 +82,6 @@ namespace Abc.Pages.Quantity
             var list = terms.Get().GetAwaiter().GetResult();
 
             foreach (var e in list) { Terms.Add(UnitTermViewFactory.Create(e)); }
-
         }
 
     }
