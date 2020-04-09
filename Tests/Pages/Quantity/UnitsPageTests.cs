@@ -16,11 +16,24 @@ namespace Abc.Tests.Pages.Quantity
     {
         private class TestClass : UnitsPage
         {
-            internal TestClass(IUnitsRepository r, IMeasuresRepository m) : base(r, m, null, null) { }
+            internal TestClass(IUnitsRepository r, IMeasuresRepository m, IUnitTermsRepository t, IUnitFactorsRepository f) : base(r, m, t, f) { }
         }
 
         private class UnitsRepository : BaseTestRepositoryForUniqueEntity<Unit, UnitData>, IUnitsRepository { }
         private class MeasuresRepository : BaseTestRepositoryForUniqueEntity<Measure, MeasureData>, IMeasuresRepository { }
+        private class TermRepository : BaseTestRepositoryForPeriodEntity<UnitTerm, UnitTermData>, IUnitTermsRepository
+        {
+            protected override bool IsThis(UnitTerm entity, string id) => true;
+            protected override string GetId(UnitTerm entity) => string.Empty;
+
+        }
+
+        private class FactorRepository : BaseTestRepositoryForPeriodEntity<UnitFactor, UnitFactorData>, IUnitFactorsRepository
+        {
+            protected override bool IsThis(UnitFactor entity, string id) => true;
+            protected override string GetId(UnitFactor entity) => string.Empty;
+
+        }
 
         private UnitsRepository _units;
         private MeasuresRepository _measures;
@@ -30,13 +43,15 @@ namespace Abc.Tests.Pages.Quantity
         public override void TestInitialize()
         {
             base.TestInitialize();
+            var t = new TermRepository();
+            var f = new FactorRepository();
             _units = new UnitsRepository();
             _measures = new MeasuresRepository();
             _data = GetRandom.Object<MeasureData>();
             var m = new Measure(_data);
             _measures.Add(m).GetAwaiter();
             AddRandomMeasures();
-            obj = new TestClass(_units, _measures);
+            obj = new TestClass(_units, _measures, t, f);
         }
 
         private void AddRandomMeasures()
@@ -82,8 +97,8 @@ namespace Abc.Tests.Pages.Quantity
         [TestMethod]
         public void LoadDetailsTest()
         {
-            var v = GetRandom.Object<UnitView>();
-            obj.LoadDetails(v);
+            var t = GetRandom.Object<UnitView>();
+            obj.LoadDetails(t);
             Assert.IsNotNull(obj.Terms);
 
             var f = GetRandom.Object<UnitView>();

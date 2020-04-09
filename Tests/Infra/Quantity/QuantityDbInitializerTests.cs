@@ -18,6 +18,7 @@ namespace Abc.Tests.Infra.Quantity
                 .UseInMemoryDatabase("TestDb")
                 .Options;
             db = new QuantityDbContext(options);
+            QuantityDbInitializer.Initialize(db);
         }
 
         [TestMethod] public void InitializeTest() { }
