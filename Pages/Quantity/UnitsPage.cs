@@ -12,10 +12,9 @@ namespace Abc.Pages.Quantity
     public abstract class UnitsPage : CommonPage<IUnitsRepository, Unit, UnitView, UnitData>
     {
 
-        protected internal readonly IUnitTermsRepository terms;
+        protected internal readonly IUnitTermsRepository terms;         //termid ja faktorid saab igakord kaasa
         protected internal readonly IUnitFactorsRepository factors;
 
-        //termid ja faktorid lisaks saab igakord kaasa
         protected internal UnitsPage(IUnitsRepository r, IMeasuresRepository m
             , IUnitTermsRepository t, IUnitFactorsRepository f) : base(r)
         {
@@ -30,9 +29,7 @@ namespace Abc.Pages.Quantity
         public IEnumerable<SelectListItem> Measures { get; }
         public IList<UnitTermView> Terms { get; }
         public IList<UnitFactorView> Factors { get; }
-
         public override string ItemId => Item?.Id ?? string.Empty;
-
         protected internal override string getPageUrl() => "/Quantity/Units";
 
         protected internal override string getPageSubTitle()
@@ -42,15 +39,9 @@ namespace Abc.Pages.Quantity
                 : $"For {GetMeasureName(FixedValue)}";
         }
 
-        protected internal override Unit ToObject(UnitView view)
-        {
-            return UnitViewFactory.Create(view);
-        }
+        protected internal override Unit ToObject(UnitView view) => UnitViewFactory.Create(view);
 
-        protected internal override UnitView ToView(Unit obj)
-        {
-            return UnitViewFactory.Create(obj);
-        }
+        protected internal override UnitView ToView(Unit obj) => UnitViewFactory.Create(obj);
 
         public string GetMeasureName(string measureId)
         {
@@ -65,6 +56,7 @@ namespace Abc.Pages.Quantity
         {
             loadTerms(item);
             loadFactors(item);
+
         }
 
         private void loadFactors(UniqueEntityView item)
@@ -77,6 +69,7 @@ namespace Abc.Pages.Quantity
             var list = factors.Get().GetAwaiter().GetResult();
 
             foreach (var e in list) { Factors.Add(UnitFactorViewFactory.Create(e)); }
+
         }
 
         private void loadTerms(UniqueEntityView item)
@@ -89,6 +82,8 @@ namespace Abc.Pages.Quantity
             var list = terms.Get().GetAwaiter().GetResult();
 
             foreach (var e in list) { Terms.Add(UnitTermViewFactory.Create(e)); }
+
         }
+
     }
 }

@@ -12,6 +12,7 @@ namespace Abc.Facade.Quantity
             Copy.Members(view, d);
 
             return new UnitFactor(d);
+
         }
 
         public static UnitFactorView Create(UnitFactor obj)
@@ -20,6 +21,7 @@ namespace Abc.Facade.Quantity
             Copy.Members(obj.Data, v);
 
             return v;
+
         }
     }
 }

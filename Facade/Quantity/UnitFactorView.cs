@@ -9,15 +9,14 @@ namespace Abc.Facade.Quantity
         [Required]
         [DisplayName("Unit")]
         public string UnitId { get; set; }
+
         [Required]
         [DisplayName("System of Units")]
         public string SystemOfUnitsId { get; set; }
+
         public double Factor { get; set; }
 
-
-        public string GetId()
-        {
-            return $"{SystemOfUnitsId}.{UnitId}";
-        }
+        public string GetId() => $"{SystemOfUnitsId}.{UnitId}";
+        
     }
 }

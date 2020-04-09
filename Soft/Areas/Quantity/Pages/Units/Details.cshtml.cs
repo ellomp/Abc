@@ -12,6 +12,7 @@ namespace Abc.Soft.Areas.Quantity.Pages.Units
         public async Task<IActionResult> OnGetAsync(string id, string fixedFilter, string fixedValue)
         {
             await GetObject(id, fixedFilter, fixedValue);
+
             return Page();
         }
     }

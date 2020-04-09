@@ -18,11 +18,13 @@ namespace Abc.Infra.Quantity {
             var unitId = GetString.Tail(id);
 
             return await dbSet.SingleOrDefaultAsync(x => x.SystemOfUnitsId == systemOfUnitsId && x.UnitId == unitId);
+
         }
 
         protected override string GetId(UnitFactor obj)
         {
             return obj?.Data is null ? string.Empty : $"{obj.Data.SystemOfUnitsId}:{obj.Data.UnitId}";
+
         }
     }
 }

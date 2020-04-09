@@ -7,5 +7,6 @@ namespace Abc.Domain.Quantity
     {
         public Unit() : this(null) { }
         public Unit(UnitData d) : base(d) { }
+
     }
 }

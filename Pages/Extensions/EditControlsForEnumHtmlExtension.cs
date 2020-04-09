@@ -16,6 +16,7 @@ namespace Abc.Pages.Extensions {
             var htmlStrings = EditControlsForEnumHtmlExtension.htmlStrings(htmlHelper, expression, selectList);
 
             return new HtmlContentBuilder(htmlStrings);
+
         }
 
         internal static List<object> htmlStrings<TModel, TResult>(IHtmlHelper<TModel> htmlHelper, 
@@ -26,9 +27,8 @@ namespace Abc.Pages.Extensions {
                 htmlHelper.DropDownListFor(expression, selectList, new {@class = "form-control"}),
                 htmlHelper.ValidationMessageFor(expression, "", new {@class = "text-danger"}),
                 new HtmlString("</div>")
+
             };
         }
-
     }
-
 }

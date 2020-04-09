@@ -7,11 +7,9 @@ namespace Abc.Facade.Quantity
     {
         [Required]
         [DisplayName("Unit")]
-        public string MasterId { get; set; } //ka õige
+        public string MasterId { get; set; }
 
-        public string GetId()
-        {
-            return $"{MasterId}.{TermId}";
-        }
+        public string GetId() => $"{MasterId}.{TermId}";
+        
     }
 }

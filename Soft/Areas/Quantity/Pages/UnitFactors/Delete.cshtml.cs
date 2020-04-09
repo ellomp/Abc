@@ -24,7 +24,5 @@ namespace Abc.Soft.Areas.Quantity.Pages.UnitFactors
 
             return Redirect(IndexUrl);
         }
-
     }
-
 }

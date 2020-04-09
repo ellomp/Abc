@@ -11,8 +11,5 @@ namespace Abc.Infra.Quantity {
 
         protected internal override SystemOfUnits toDomainObject(SystemOfUnitsData d) => new SystemOfUnits(d);
 
-
     }
-
 }
-

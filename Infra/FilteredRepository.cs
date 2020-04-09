@@ -24,6 +24,7 @@ namespace Abc.Infra
             query = AddFiltering(query);
 
             return query; //annan tagasi
+
         }
 
         public IQueryable<TData> AddFixedFiltering(IQueryable<TData> query)
@@ -31,6 +32,7 @@ namespace Abc.Infra
             var expression = CreateFixedWhereExpression();
 
             return expression is null ? query : query.Where(expression);
+
         }
 
         public Expression<Func<TData, bool>> CreateFixedWhereExpression()
@@ -51,12 +53,14 @@ namespace Abc.Infra
             var predicate = body;
 
             return Expression.Lambda<Func<TData, bool>>(predicate, param);
+
         }
 
         protected internal IQueryable<TData> AddFiltering(IQueryable<TData> query)
         {
             if (string.IsNullOrEmpty(SearchString)) return query;
             var expression = CreateWhereExpression();
+
             return expression is null ? query : query.Where(expression);
         }
 
@@ -85,6 +89,6 @@ namespace Abc.Infra
 //                          || s.Code.Contains(SearchString)
 //                          || s.Id.Contains(SearchString)
 //                          || s.Definition.Contains(SearchString)
-//                          || s.ValidFrom.ToString().Contains(SearchString)          //et selle järgi saaks filtreerida peame  enne tegema stringiks ses tsee on tegelikult datetime tüüpi muutuja
+//                          || s.ValidFrom.ToString().Contains(SearchString)     //et selle järgi saaks filtreerida peame  enne tegema stringiks ses tsee on tegelikult datetime tüüpi muutuja
 //                          || s.ValidTo.ToString().Contains(SearchString));
 //}

@@ -20,9 +20,7 @@ namespace Abc.Infra.Quantity {
             return await dbSet.SingleOrDefaultAsync(x => x.TermId == termId && x.MasterId == masterId);
         }
 
-        protected override string GetId(MeasureTerm obj)
-        {
-            return obj?.Data is null ? string.Empty : $"{obj.Data.MasterId}.{obj.Data.TermId}";
-        }
+        protected override string GetId(MeasureTerm obj) => obj?.Data is null ? string.Empty : $"{obj.Data.MasterId}.{obj.Data.TermId}";
+        
     }
 }

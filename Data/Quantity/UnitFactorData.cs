@@ -7,5 +7,6 @@ namespace Abc.Data.Quantity
         public string UnitId { get; set; }
         public string SystemOfUnitsId { get; set; }
         public double Factor { get; set; }
+
     }
 }

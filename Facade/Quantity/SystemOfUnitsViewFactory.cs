@@ -12,13 +12,16 @@ namespace Abc.Facade.Quantity
             Copy.Members(view, d);
 
             return new SystemOfUnits(d);
+
         }
+
         public static SystemOfUnitsView Create(SystemOfUnits obj)
         {
             var v = new SystemOfUnitsView();
             Copy.Members(obj.Data, v);
 
             return v;
+
         }
     } 
 }

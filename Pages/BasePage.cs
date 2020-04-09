@@ -17,23 +17,28 @@ namespace Abc.Pages {
         public string SortOrder {
             get => db.SortOrder;
             set => db.SortOrder = value;
+
         }
         public string SearchString {
             get => db.SearchString;
             set => db.SearchString = value;
+
         }
         public string FixedValue {
             get => db.FixedValue;
             set => db.FixedValue = value;
+
         }
         public string FixedFilter {
             get => db.FixedFilter;
             set => db.FixedFilter = value;
+
         }
 
         protected internal void setFixedFilter(string fixedFilter, string fixedValue) {
             FixedFilter = fixedFilter;
             FixedValue = fixedValue;
+
         }
 
         protected internal abstract void setPageValues(string sortOrder, string searchString, in int pageIndex);
@@ -44,6 +49,7 @@ namespace Abc.Pages {
 
             return $"{page}?sortOrder={sortOrder}&currentFilter={SearchString}"
                    + $"&fixedFilter={FixedFilter}&fixedValue={FixedValue}";
+
         }
 
         internal string getSortOrder(string name) {
@@ -52,6 +58,7 @@ namespace Abc.Pages {
             if (SortOrder.EndsWith("_desc")) return name;
 
             return name + "_desc";
+
         }
 
         internal static string
@@ -62,7 +69,5 @@ namespace Abc.Pages {
             return searchString;
 
         }
-
     }
-
 }

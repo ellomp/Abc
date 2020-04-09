@@ -12,6 +12,7 @@ namespace Abc.Facade.Quantity
             Copy.Members(v, d);
 
             return new MeasureTerm(d);
+
         }
 
         public static MeasureTermView Create(MeasureTerm o)
@@ -20,6 +21,7 @@ namespace Abc.Facade.Quantity
             Copy.Members(o.Data, v);
 
             return v;
+
         }
     }
 }

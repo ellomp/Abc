@@ -7,5 +7,6 @@ namespace Abc.Domain.Quantity
     {
         public UnitTerm() : this(null) { }
         public UnitTerm(UnitTermData d) : base(d) { }
+
     }
 }

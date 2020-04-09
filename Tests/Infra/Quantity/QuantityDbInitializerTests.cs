@@ -8,7 +8,7 @@ namespace Abc.Tests.Infra.Quantity
     [TestClass]
     public class QuantityDbInitializerTests : BaseTests
     {
-        private QuantityDbContext _db;
+        private QuantityDbContext db;
 
         [TestInitialize]
         public void TestInitialize()
@@ -17,36 +17,21 @@ namespace Abc.Tests.Infra.Quantity
             var options = new DbContextOptionsBuilder<QuantityDbContext>()
                 .UseInMemoryDatabase("TestDb")
                 .Options;
-            _db = new QuantityDbContext(options);
+            db = new QuantityDbContext(options);
         }
 
-        [TestMethod]
-        public void InitializeTest()
-        {
+        [TestMethod] public void InitializeTest() { }
 
-        }
+        public int getCount<T>(DbSet<T> dbSet)
+            where T : PeriodData, new() => dbSet.CountAsync().GetAwaiter().GetResult();
 
-        [TestMethod]
-        public void MeasuresTest() => Assert.AreEqual(12, getCount(_db.Measures));
 
-        private int getCount<T>(DbSet<T> dbSet)
-            where T : PeriodData, new()
-        {
-           return dbSet.CountAsync().GetAwaiter().GetResult();
-        }
-
-        [TestMethod]
-        public void UnitsTest() => Assert.AreEqual(125, getCount(_db.Units));
-
-        [TestMethod]
-        public void MeasureTermsTest() => Assert.AreEqual(2, getCount(_db.MeasureTerms));
-        [TestMethod]
-        public void UnitTermsTest() => Assert.AreEqual(39, getCount(_db.UnitTerms));
-        [TestMethod]
-        public void UnitFactorsTest() => Assert.AreEqual(90, getCount(_db.UnitFactors));
-        [TestMethod]
-        public void SystemOfUnitsTest() => Assert.AreEqual(2, getCount(_db.SystemsOfUnits));
-
+        [TestMethod] public void MeasuresTest() => Assert.AreEqual(12, getCount(db.Measures));
+        [TestMethod] public void UnitsTest() => Assert.AreEqual(125, getCount(db.Units));
+        [TestMethod] public void MeasureTermsTest() => Assert.AreEqual(2, getCount(db.MeasureTerms));
+        [TestMethod] public void UnitTermsTest() => Assert.AreEqual(39, getCount(db.UnitTerms));
+        [TestMethod] public void UnitFactorsTest() => Assert.AreEqual(90, getCount(db.UnitFactors));
+        [TestMethod] public void SystemOfUnitsTest() => Assert.AreEqual(2, getCount(db.SystemsOfUnits));
 
     }
 }

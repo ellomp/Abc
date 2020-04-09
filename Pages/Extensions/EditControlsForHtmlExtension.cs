@@ -14,6 +14,7 @@ namespace Abc.Pages.Extensions {
             var s = htmlStrings(htmlHelper, expression);
 
             return new HtmlContentBuilder(s);
+
         }
 
         internal static List<object> htmlStrings<TModel, TResult>(IHtmlHelper<TModel> htmlHelper,
@@ -25,9 +26,8 @@ namespace Abc.Pages.Extensions {
                     new {htmlAttributes = new {@class = "form-control"}}),
                 htmlHelper.ValidationMessageFor(expression, "", new {@class = "text-danger"}),
                 new HtmlString("</div>")
+
             };
         }
-
     }
-
 }

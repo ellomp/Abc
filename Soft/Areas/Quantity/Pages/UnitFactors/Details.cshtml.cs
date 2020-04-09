@@ -17,7 +17,5 @@ namespace Abc.Soft.Areas.Quantity.Pages.UnitFactors
 
             return Page();
         }
-
     }
-
 }

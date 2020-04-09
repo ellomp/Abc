@@ -7,5 +7,6 @@ namespace Abc.Domain.Quantity
     {
         public MeasureTerm() : this(null) { }
         public MeasureTerm(MeasureTermData data) : base(data) { } //constructor
+
     }
 }

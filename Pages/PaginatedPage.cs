@@ -21,6 +21,7 @@ namespace Abc.Pages {
             get => db.PageIndex;
             set => db.PageIndex = value;
         }
+
         public bool HasPreviousPage => db.HasPreviousPage;
         public bool HasNextPage => db.HasNextPage;
 
@@ -30,6 +31,7 @@ namespace Abc.Pages {
             SortOrder = sortOrder;
             SearchString = searchString;
             PageIndex = pageIndex;
+
         }
 
         protected internal async Task GetList(string sortOrder, string currentFilter, string searchString,
@@ -41,14 +43,14 @@ namespace Abc.Pages {
             SearchString = getSearchString(currentFilter, searchString, ref pageIndex);
             PageIndex = pageIndex ?? 1;
             Items = await GetList();
+
         }
 
         internal async Task<List<TView>> GetList() {
             var l = await db.Get();
 
             return l.Select(ToView).ToList();
+
         }
-
     }
-
 }

@@ -9,9 +9,10 @@ namespace Abc.Facade.Quantity
         public static UnitTerm Create(UnitTermView v)
         {
             var d = new UnitTermData();
-            Copy.Members(v, d); //copy viewst datasse
+            Copy.Members(v, d); 
 
             return new UnitTerm(d);
+
         }
 
         public static UnitTermView Create(UnitTerm o)
@@ -20,6 +21,7 @@ namespace Abc.Facade.Quantity
             Copy.Members(o.Data, v);
 
             return v;
+
         }
     }
 }

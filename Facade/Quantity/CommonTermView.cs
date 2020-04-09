@@ -9,6 +9,7 @@ namespace Abc.Facade.Quantity
         [Required]
         [DisplayName ("Term")]
         public string TermId { get; set; }
+
         public int Power { get; set; }
        
     }

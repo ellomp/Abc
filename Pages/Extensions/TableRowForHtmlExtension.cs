@@ -11,6 +11,7 @@ namespace Abc.Pages.Extensions
             params IHtmlContent[] values)
         {
             var s = htmlStrings(page, index, values);
+
             return new HtmlContentBuilder(s);
         }
 
@@ -27,16 +28,18 @@ namespace Abc.Pages.Extensions
             list.Add(new HtmlString("</td>"));
 
             return list;
+
         }
 
         public static IHtmlContent TableRowFor(
             this IHtmlHelper htmlHelper, string page, object index,
             string fixedFilter, string fixedValue,
-
             params IHtmlContent[] values)
         {
             var s = htmlStrings(page, index, fixedFilter, fixedValue, values);
+
             return new HtmlContentBuilder(s);
+
         }
 
         private static List<object> htmlStrings(string page, object index, string fixedFilter, string fixedValue, IHtmlContent[] values)
@@ -52,6 +55,7 @@ namespace Abc.Pages.Extensions
             list.Add(new HtmlString("</td>"));
 
             return list;
+
         }
 
         public static IHtmlContent TableRowWithSelectFor(
@@ -61,6 +65,7 @@ namespace Abc.Pages.Extensions
             params IHtmlContent[] values)
         {
             var s = htmlStringsWithSelect(page, index, sortOrder, searchString, pageIndex, fixedFilter, fixedValue, values);
+            
             return new HtmlContentBuilder(s);
         }
 
@@ -91,10 +96,10 @@ namespace Abc.Pages.Extensions
         public static IHtmlContent TableRowWithSelectFor(
             this IHtmlHelper htmlHelper, string page, object index,
             string fixedFilter, string fixedValue,
-
             params IHtmlContent[] values)
         {
             var s = htmlStringsWithSelect(page, index, fixedFilter, fixedValue, values);
+            
             return new HtmlContentBuilder(s);
         }
 
@@ -122,6 +127,7 @@ namespace Abc.Pages.Extensions
             htmlStrings.Add(new HtmlString("<td>"));
             htmlStrings.Add(value);
             htmlStrings.Add(new HtmlString("</td>"));
+
         }
     }
 }

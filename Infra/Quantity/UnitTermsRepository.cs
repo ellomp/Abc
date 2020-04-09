@@ -19,12 +19,11 @@ namespace Abc.Infra.Quantity {
             var termId = GetString.Tail(id);
 
             return await dbSet.SingleOrDefaultAsync(x => x.TermId == termId && x.MasterId == masterId);
+
         }
 
-        protected override string GetId(UnitTerm obj)
-        {
-            return obj?.Data is null ? string.Empty : $"{obj.Data.MasterId}:{obj.Data.TermId}";
-        }
+        protected override string GetId(UnitTerm obj) => obj?.Data is null ? string.Empty : $"{obj.Data.MasterId}:{obj.Data.TermId}";
+        
     }
 }
 

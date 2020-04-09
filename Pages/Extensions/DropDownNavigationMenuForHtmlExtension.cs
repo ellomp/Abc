@@ -11,6 +11,7 @@ namespace Abc.Pages.Extensions {
             if (item is null) return;
             var s = $"<a class='dropdown-item text-dark' href=\"{item.Url}\">{item.DisplayName}</a>";
             htmlStrings.Add(new HtmlString(s));
+
         }
 
         internal static void beginDropDownNavigationMenu(List<object> htmlStrings, string name) {
@@ -21,12 +22,14 @@ namespace Abc.Pages.Extensions {
             htmlStrings.Add(new HtmlString(name));
             htmlStrings.Add(new HtmlString("</a>"));
             htmlStrings.Add(new HtmlString("<div class=\"dropdown-menu\">"));
+
         }
 
         internal static void endDropDownNavigationMenu(List<object> htmlStrings) {
             if (htmlStrings is null) return;
             htmlStrings.Add(new HtmlString("</div>"));
             htmlStrings.Add(new HtmlString("</li>"));
+
         }
 
         public static IHtmlContent
@@ -34,6 +37,7 @@ namespace Abc.Pages.Extensions {
             var strings = htmlStrings(name, items);
 
             return new HtmlContentBuilder(strings);
+
         }
 
         internal static List<object> htmlStrings(string name, params Link[] items) {
@@ -43,8 +47,7 @@ namespace Abc.Pages.Extensions {
             endDropDownNavigationMenu(list);
 
             return list;
+
         }
-
     }
-
 }

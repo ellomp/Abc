@@ -21,10 +21,11 @@ namespace Abc.Infra
         }
         public virtual async Task<List<TDomain>> Get()
         {
-            var query = CreateSqlQuery(); //teen sql query, ei tea kuidas ag ateeme
-            var set = await runSqlQueryAsync(query); //küsin db andmed ja vastavalt sellele queryle  mida teinud olem
+            var query = CreateSqlQuery(); //teen sql query
+            var set = await runSqlQueryAsync(query); //küsin db andmed vastavalt sellele queryle, mida teinud oleme
 
-            return toDomainObjectsList(set); //nii, vii see kõik listi, mis ei ole andmeobj list vaid valdkonna obj list
+            return toDomainObjectsList(set); //vii see kõik listi, mis ei ole andmeobjektide list vaid valdkonna objektide list
+
         }
         
         internal List<TDomain> toDomainObjectsList(List<TData> set) => set.Select(toDomainObject).ToList();
@@ -67,7 +68,9 @@ namespace Abc.Infra
             if (id is null) return new TDomain();
             var d = await getData(id); 
             var obj = toDomainObject(d);
+
             return obj; //annan selle obj talle tagasi
+
         }
 
         protected abstract Task<TData> getData(string id);
@@ -83,8 +86,10 @@ namespace Abc.Infra
             dbSet.Remove(v); //eemaldan
             dbSet.Add(obj.Data); //lisan uue
             await db.SaveChangesAsync(); //ja alles siis salvestan
+
         }
 
         protected abstract string GetId(TDomain entity);
+
     }
 }

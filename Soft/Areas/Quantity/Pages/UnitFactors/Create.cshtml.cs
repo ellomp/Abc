@@ -14,9 +14,12 @@ namespace Abc.Soft.Areas.Quantity.Pages.UnitFactors
         {
             FixedFilter = fixedFilter;
             FixedValue = fixedValue;
+
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string fixedFilter, string fixedValue) => !await AddObject(fixedFilter, fixedValue) ? (IActionResult) Page() : Redirect(IndexUrl);
+        public async Task<IActionResult> OnPostAsync(string fixedFilter, string fixedValue) 
+            => !await AddObject(fixedFilter, fixedValue) ? (IActionResult) Page() : Redirect(IndexUrl);
+
     }
 }

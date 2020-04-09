@@ -8,7 +8,8 @@ namespace Abc.Pages.Quantity {
         SystemOfUnitsPage : CommonPage<ISystemOfUnitsRepository, SystemOfUnits, SystemOfUnitsView, SystemOfUnitsData
         > {
 
-        protected internal SystemOfUnitsPage(ISystemOfUnitsRepository r) : base(r) {
+        protected internal SystemOfUnitsPage(ISystemOfUnitsRepository r) : base(r) 
+        {
             PageTitle = "System Of Units";
         }
 
@@ -16,16 +17,11 @@ namespace Abc.Pages.Quantity {
 
         protected internal override string getPageUrl() => "/Quantity/SystemOfUnits";
 
-        protected internal override SystemOfUnits ToObject(SystemOfUnitsView view) {
-            return SystemOfUnitsViewFactory.Create(view);
-        }
+        protected internal override SystemOfUnits ToObject(SystemOfUnitsView view) => SystemOfUnitsViewFactory.Create(view);
 
-        protected internal override SystemOfUnitsView ToView(SystemOfUnits obj) {
-            return SystemOfUnitsViewFactory.Create(obj);
-        }
+        protected internal override SystemOfUnitsView ToView(SystemOfUnits obj) => SystemOfUnitsViewFactory.Create(obj);
 
     }
-
 }
 
 

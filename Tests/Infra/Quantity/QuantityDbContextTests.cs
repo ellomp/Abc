@@ -100,5 +100,4 @@ namespace Abc.Tests.Infra.Quantity
             IsNullableProperty(obj, nameof(obj.MeasureTerms), typeof(DbSet<MeasureTermData>));
 
     }
-
 }

@@ -15,6 +15,7 @@ namespace Abc.Pages.Extensions
             var htmlStrings = EditControlsForDropDownHtmlExtension.htmlStrings(htmlHelper, expression, items);
 
             return new HtmlContentBuilder(htmlStrings);
+
         }
 
         internal static List<object> htmlStrings<TModel, TResult>(IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression, IEnumerable<SelectListItem> items) {
@@ -24,8 +25,8 @@ namespace Abc.Pages.Extensions
                 htmlHelper.DropDownListFor(expression, items, new {@class = "form-control"}),
                 htmlHelper.ValidationMessageFor(expression, "", new {@class = "text-danger"}),
                 new HtmlString("</div>")
+
             };
         }
-
     }
 }

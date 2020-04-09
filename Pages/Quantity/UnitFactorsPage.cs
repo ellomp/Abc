@@ -51,7 +51,5 @@ namespace Abc.Pages.Quantity
                 ? base.getPageSubTitle()
                 : $"For {GetUnitName(FixedValue)}";
         }
-
     }
-
 }

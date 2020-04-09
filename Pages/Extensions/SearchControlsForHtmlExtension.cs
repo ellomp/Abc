@@ -9,7 +9,9 @@ namespace Abc.Pages.Extensions {
         public static IHtmlContent SearchControlsFor(
             this IHtmlHelper htmlHelper, string filter, string linkToFullList, string text=backToFullList) {
             var s = htmlStrings(filter, linkToFullList, text);
+
             return new HtmlContentBuilder(s);
+
         }
 
         internal static List<object> htmlStrings(string filter, string linkToFullList, string text) {
@@ -26,7 +28,9 @@ namespace Abc.Pages.Extensions {
                 new HtmlString("</div>"),
                 new HtmlString("</form>")
             };
+
             return htmlStrings;
+
         }
     }
 }

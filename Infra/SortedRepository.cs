@@ -26,6 +26,7 @@ namespace Abc.Infra
             query = AddSorting(query);
 
             return query;
+
         }
 
         protected internal IQueryable<TData> AddSorting(IQueryable<TData> query)
@@ -34,6 +35,7 @@ namespace Abc.Infra
             var r = expression is null ? query : AddOrderBy(query, expression);
 
             return r;
+
         }
 
         internal Expression<Func<TData, object>> CreateExpression()
@@ -41,6 +43,7 @@ namespace Abc.Infra
             var property = FindProperty();
 
             return property is null ? null : LambdaExpression(property);
+
         }
 
         internal Expression<Func<TData, object>> LambdaExpression(PropertyInfo p)
@@ -50,12 +53,15 @@ namespace Abc.Infra
             var body = Expression.Convert(property, typeof(object));
 
             return Expression.Lambda<Func<TData, object>>(body, param);
+
         }
 
         internal PropertyInfo FindProperty()
         {
             var name = GetName();
+
             return typeof(TData).GetProperty(name);
+
         }
 
         internal string GetName()
@@ -64,6 +70,7 @@ namespace Abc.Infra
             var idx = SortOrder.IndexOf(DescendingString, StringComparison.Ordinal);
 
             return idx > 0 ? SortOrder.Remove(idx) : SortOrder;
+
         }
 
         internal IQueryable<TData> AddOrderBy(IQueryable<TData> query, Expression<Func<TData, object>> e)
@@ -79,6 +86,7 @@ namespace Abc.Infra
                 return query;
             }
         }
+
         internal bool IsDescending() => !string.IsNullOrEmpty(SortOrder) && SortOrder.EndsWith(DescendingString);
     }
 }

@@ -12,12 +12,14 @@ namespace Abc.Soft.Areas.Quantity.Pages.MeasureTerms
         {
             FixedFilter = fixedFilter;
             FixedValue = fixedValue;
+
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string fixedFilter, string fixedValue)
         {
             if (!await AddObject(fixedFilter, fixedValue)) return Page();
+
             return Redirect(IndexUrl);
         }
     }

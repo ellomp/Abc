@@ -7,5 +7,6 @@ namespace Abc.Domain.Quantity
     {
         public SystemOfUnits() : this(null) { }
         public SystemOfUnits(SystemOfUnitsData data) : base(data) { } //constructor
+
     }
 }

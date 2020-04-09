@@ -12,6 +12,7 @@ namespace Abc.Pages.Extensions {
             var s = htmlStrings(text, items);
 
             return new HtmlContentBuilder(s);
+
         }
 
         internal static List<object> htmlStrings(string text, Link[] items) {
@@ -26,8 +27,7 @@ namespace Abc.Pages.Extensions {
             l.Add(new HtmlString("</p>"));
 
             return l;
+
         }
-
     }
-
 }

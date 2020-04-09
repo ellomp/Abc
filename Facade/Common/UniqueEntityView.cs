@@ -6,5 +6,6 @@ namespace Abc.Facade.Common
     {
         [Required]
         public string Id { get; set; }
+
     }
 }

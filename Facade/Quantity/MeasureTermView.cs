@@ -5,13 +5,11 @@ namespace Abc.Facade.Quantity
 {
     public sealed class MeasureTermView : CommonTermView
     {
-        [Required] //siia lisaisin viimasena piho järgi
+        [Required] 
         [DisplayName("Measure")]
         public string MasterId { get; set; }
 
-        public string GetId()
-        {
-            return $"{MasterId}.{TermId}";
-        }
+        public string GetId() => $"{MasterId}.{TermId}";
+        
     }
 }

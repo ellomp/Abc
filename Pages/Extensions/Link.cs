@@ -11,5 +11,6 @@
         public string DisplayName { get; }
         public string Url { get; }
         public string PropertyName { get; }
+
     }
 }

@@ -14,6 +14,7 @@ namespace Abc.Pages.Extensions {
             var s = htmlStrings(htmlHelper, expression);
 
             return new HtmlContentBuilder(s);
+
         }
 
         public static IHtmlContent DisplayControlsFor<TModel, TResult>(this IHtmlHelper<TModel> htmlHelper,
@@ -21,6 +22,7 @@ namespace Abc.Pages.Extensions {
             var s = htmlStrings(htmlHelper, expression, value);
 
             return new HtmlContentBuilder(s);
+
         }
 
         internal static List<object> htmlStrings<TModel, TResult>(IHtmlHelper<TModel> htmlHelper,
@@ -32,6 +34,7 @@ namespace Abc.Pages.Extensions {
                 new HtmlString("<dd class=\"col-sm-10\">"),
                 htmlHelper.DisplayFor(expression),
                 new HtmlString("</dd>")
+
             };
         }
 
@@ -44,9 +47,8 @@ namespace Abc.Pages.Extensions {
                 new HtmlString("<dd class=\"col-sm-10\">"),
                 htmlHelper.Raw(value),
                 new HtmlString("</dd>")
+
             };
         }
-
     }
-
 }

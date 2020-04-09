@@ -19,7 +19,6 @@ namespace Abc.Pages.Quantity
         }
         public IList<MeasureTermView> Terms { get; }
 
-
         public override string ItemId => Item?.Id ?? string.Empty;
 
         protected internal override string getPageUrl() => "/Quantity/Measures";
@@ -43,8 +42,7 @@ namespace Abc.Pages.Quantity
             {
                 Terms.Add(MeasureTermViewFactory.Create(e));
             }
+
         }
-
     }
-
 }

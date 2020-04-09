@@ -10,7 +10,9 @@ namespace Abc.Facade.Quantity
         {
             var d = new UnitData();
             Copy.Members(v, d);
+
             return new Unit(d);
+
         }
 
         public static UnitView Create(Unit o)
@@ -18,7 +20,10 @@ namespace Abc.Facade.Quantity
             var v = new UnitView();
             if (!(o?.Data is null))
                 Copy.Members(o.Data, v);
+
             return v;
+
         }
+
     }
 }

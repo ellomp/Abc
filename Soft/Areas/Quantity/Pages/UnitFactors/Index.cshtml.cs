@@ -19,7 +19,5 @@ namespace Abc.Soft.Areas.Quantity.Pages.UnitFactors
                 fixedFilter, fixedValue);
 
         }
-
     }
-
 }

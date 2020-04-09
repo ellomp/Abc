@@ -9,6 +9,7 @@ namespace Abc.Pages.Extensions {
             this IHtmlHelper htmlHelper, string title) {
             htmlHelper.ViewData["Title"] = title;
             var s = htmlStrings(title);
+
             return new HtmlContentBuilder(s);
         }
 
@@ -17,8 +18,8 @@ namespace Abc.Pages.Extensions {
                 new HtmlString("<h1>"),
                 new HtmlString(title),
                 new HtmlString("</h1>")
+
             };
         }
-
     }
 }

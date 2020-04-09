@@ -3,24 +3,24 @@ using Abc.Aids;
 using Abc.Data.Quantity;
 using Abc.Domain.Quantity;
 using Abc.Facade.Quantity;
+using Abc.Infra.Quantity;
 using Abc.Pages;
 using Abc.Pages.Quantity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Abc.Tests.Pages.Quantity
 {
-
     [TestClass]
     public class UnitsPageTests : AbstractClassTests<UnitsPage,
         CommonPage<IUnitsRepository, Unit, UnitView, UnitData>>
     {
         private class TestClass : UnitsPage
         {
-            internal TestClass(IUnitsRepository r, IMeasuresRepository m) : base(r, m) { }
+            // internal TestClass(IUnitsRepository r, IMeasuresRepository m) : base(r, m) { }
+            internal TestClass(IUnitsRepository r, IMeasuresRepository m) : base(r, m, null, null) { }
         }
 
         private class UnitsRepository : BaseTestRepositoryForUniqueEntity<Unit, UnitData>, IUnitsRepository { }
-
         private class MeasuresRepository : BaseTestRepositoryForUniqueEntity<Measure, MeasureData>, IMeasuresRepository { }
 
         private UnitsRepository _units;
@@ -94,5 +94,4 @@ namespace Abc.Tests.Pages.Quantity
             Assert.AreEqual(list.Count, obj.Measures.Count());
         }
     }
-
 }

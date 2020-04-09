@@ -18,16 +18,11 @@ namespace Abc.Tests.Pages.Quantity
         }
 
         private class TestRepository : BaseTestRepositoryForUniqueEntity<Measure, MeasureData>, IMeasuresRepository { }
-        private class TermRepository : BaseTestRepositoryForPeriodEntity<MeasureTerm, MeasureTermData>, IMeasureTermsRepository {
-            protected override bool IsThis(MeasureTerm entity, string id)
-            {
-                return true;
-            }
-
-            protected override string GetId(MeasureTerm entity)
-            {
-                return string.Empty;
-            }
+        private class TermRepository : BaseTestRepositoryForPeriodEntity<MeasureTerm, MeasureTermData>, IMeasureTermsRepository 
+        {
+            protected override bool IsThis(MeasureTerm entity, string id) => true;
+            protected override string GetId(MeasureTerm entity) => string.Empty;
+            
         }
 
         [TestInitialize]

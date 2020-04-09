@@ -34,9 +34,7 @@ namespace Abc.Pages {
             var items = r.Get().GetAwaiter().GetResult();
 
             return items.Select(m => new SelectListItem(m.Data.Name, m.Data.Id)).ToList();
+
         }
-
-
     }
-
 }

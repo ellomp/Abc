@@ -12,16 +12,17 @@ namespace Abc.Pages.Extensions
         public static IHtmlContent DisabledControlsFor<TModel, TResult>(
             this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression)
         {
-
             var s = htmlStrings(htmlHelper, expression);
 
             return new HtmlContentBuilder(s);
+
         }
 
         internal static List<object> htmlStrings<TModel, TResult>(IHtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TResult>> expression)
         {
-            return new List<object> {
+            return new List<object> 
+            {
                 new HtmlString("<div class=\"form-group\">"),
                 htmlHelper.LabelFor(expression, new {@class = "text-dark"}),
                 htmlHelper.EditorFor(expression,
@@ -30,7 +31,5 @@ namespace Abc.Pages.Extensions
                 new HtmlString("</div>")
             };
         }
-
     }
-
 }

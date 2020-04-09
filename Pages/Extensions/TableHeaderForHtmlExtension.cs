@@ -26,6 +26,7 @@ namespace Abc.Pages.Extensions {
             htmlStrings.Add(new HtmlString("</tr>"));
 
             return new HtmlContentBuilder(htmlStrings);
+
         }
 
         internal static void AddHeader(List<object> htmlStrings, string name) {
@@ -34,15 +35,16 @@ namespace Abc.Pages.Extensions {
             htmlStrings.Add(new HtmlString("<th>"));
             htmlStrings.Add(name);
             htmlStrings.Add(new HtmlString("</th>"));
+
         }
+
         internal static void AddLink(List<object> htmlStrings, Link link) {
             if (htmlStrings is null) return;
             if (link is null) return;
             htmlStrings.Add(new HtmlString("<th>"));
             htmlStrings.Add(new HtmlString($"<a href=\"{link.Url}\"><span style=\"font-weight:normal\">{link.DisplayName}</span></a>"));
             htmlStrings.Add(new HtmlString("</th>"));
+
         }
-
     }
-
 }
