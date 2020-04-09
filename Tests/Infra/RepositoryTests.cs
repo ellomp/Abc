@@ -16,7 +16,7 @@ namespace Abc.Tests.Infra
     {
         private TData data;
         protected TRepository obj;
-        protected DbContext _db;
+        protected DbContext db;
         protected int _count;
         protected DbSet<TData> dbSet;
 
@@ -44,8 +44,8 @@ namespace Abc.Tests.Infra
         protected void CleanDbSet()
         {
             foreach (var e in dbSet) //see loop teeb andmebaasi tühjaks, vajalik Count total items testclassi jaoks, sest luges väärtuseid topelt
-                _db.Entry(e).State = EntityState.Deleted;
-            _db.SaveChanges();
+                db.Entry(e).State = EntityState.Deleted;
+            db.SaveChanges();
         }
 
         protected void AddItems()
@@ -99,7 +99,7 @@ namespace Abc.Tests.Infra
             AddTest();
             var id = GetId(data);
             var newData = GetRandom.Object<TData>();
-            SetId(newData,id);
+            SetId(newData, id);
             obj.Update(GetObject(newData)).GetAwaiter();
             var expected = obj.Get(id).GetAwaiter().GetResult();
             ArePropertyValuesEqualTest(newData, expected.Data);

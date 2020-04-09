@@ -18,16 +18,17 @@ namespace Abc.Pages.Extensions
 
         }
 
-        internal static List<object> htmlStrings<TModel, TResult>(IHtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, TResult>> expression)
+        internal static List<object> htmlStrings<TModel, TResult>
+            (IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression)
         {
-            return new List<object> 
+            return new List<object>
             {
                 new HtmlString("<div class=\"form-group\">"),
+                new HtmlString("<fieldset disabled>"),
                 htmlHelper.LabelFor(expression, new {@class = "text-dark"}),
-                htmlHelper.EditorFor(expression,
-                    new {htmlAttributes = new {@class = "form-control"}}),
+                htmlHelper.EditorFor(expression, new {htmlAttributes = new {@class = "form-control"}}),
                 htmlHelper.ValidationMessageFor(expression, "", new {@class = "text-danger"}),
+                new HtmlString("</fieldset>"),
                 new HtmlString("</div>")
             };
         }

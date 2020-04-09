@@ -18,9 +18,9 @@ namespace Abc.Tests.Infra.Quantity
             var options = new DbContextOptionsBuilder<QuantityDbContext>()
                 .UseInMemoryDatabase("TestDb")
                 .Options;
-            _db = new QuantityDbContext(options);
-            dbSet = ((QuantityDbContext)_db).Measures;
-            obj = new MeasuresRepository((QuantityDbContext)_db);
+            db = new QuantityDbContext(options);
+            dbSet = ((QuantityDbContext)db).Measures;
+            obj = new MeasuresRepository((QuantityDbContext)db);
            
             base.TestInitialize();
               

@@ -13,18 +13,17 @@ namespace Abc.Infra.Quantity {
 
         protected internal override UnitFactor toDomainObject(UnitFactorData d) => new UnitFactor(d);
 
-        protected override async Task<UnitFactorData> getData(string id) {
+        protected override async Task<UnitFactorData> getData(string id)
+        {
             var systemOfUnitsId = GetString.Head(id);
             var unitId = GetString.Tail(id);
 
             return await dbSet.SingleOrDefaultAsync(x => x.SystemOfUnitsId == systemOfUnitsId && x.UnitId == unitId);
-
         }
 
         protected override string GetId(UnitFactor obj)
         {
-            return obj?.Data is null ? string.Empty : $"{obj.Data.SystemOfUnitsId}:{obj.Data.UnitId}";
-
+            return obj?.Data is null ? string.Empty : $"{obj.Data.SystemOfUnitsId}.{obj.Data.UnitId}";
         }
     }
 }

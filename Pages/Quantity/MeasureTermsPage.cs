@@ -13,7 +13,7 @@ namespace Abc.Pages.Quantity
         protected internal MeasureTermsPage(IMeasureTermsRepository r, IMeasuresRepository m) : base(r)
         {
             PageTitle = "Measure Terms";
-            Measures = createSelectList<Measure, MeasureData>(m);
+            Measures = createSelectList<Measure, MeasureData>(m); 
         }
 
         public override string ItemId => Item is null ? string.Empty : Item.GetId();

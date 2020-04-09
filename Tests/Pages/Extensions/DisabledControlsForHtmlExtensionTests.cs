@@ -11,8 +11,7 @@ namespace Abc.Tests.Pages.Extensions
     public class DisabledControlsForHtmlExtensionTests : BaseTests
     {
 
-        [TestInitialize]
-        public virtual void TestInitialize() => type = typeof(DisabledControlsForHtmlExtension);
+        [TestInitialize] public virtual void TestInitialize() => type = typeof(DisabledControlsForHtmlExtension);
 
         [TestMethod]
         public void DisabledControlsForTest()
@@ -24,15 +23,10 @@ namespace Abc.Tests.Pages.Extensions
         [TestMethod]
         public void HtmlStringsTest()
         {
-            var expected = new List<string>
-            {
-                "<div", "<fieldset disabled>", "EditorFor", "ValidationMessageFor", "</fieldset>", "</div>"
-            };
-            var actual =
-                DisabledControlsForHtmlExtension.htmlStrings(new htmlHelperMock<MeasureView>(), x => x.ValidFrom);
+            var expected = new List<string> { "<div", "<fieldset disabled>", "LabelFor", "EditorFor", "ValidationMessageFor", "</fieldset>", "</div>" };
+            var actual = DisabledControlsForHtmlExtension.htmlStrings(new htmlHelperMock<MeasureView>(), x => x.ValidFrom);
             TestHtml.Strings(actual, expected);
         }
-
     }
 }
 

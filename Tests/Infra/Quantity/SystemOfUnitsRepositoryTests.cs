@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Abc.Tests.Infra.Quantity
 {
     [TestClass]
-    public class SystemsOfUnitsRepositoryTests : RepositoryTests<SystemOfUnitsRepository, SystemOfUnits, SystemOfUnitsData>
+    public class SystemOfUnitsRepositoryTests : RepositoryTests<SystemOfUnitsRepository, SystemOfUnits, SystemOfUnitsData>
     {
 
         [TestInitialize]
@@ -18,9 +18,9 @@ namespace Abc.Tests.Infra.Quantity
             var options = new DbContextOptionsBuilder<QuantityDbContext>()
                 .UseInMemoryDatabase("TestDb")
                 .Options;
-            _db = new QuantityDbContext(options);
-            dbSet = ((QuantityDbContext)_db).SystemsOfUnits;
-            obj = new SystemOfUnitsRepository((QuantityDbContext)_db);
+            db = new QuantityDbContext(options);
+            dbSet = ((QuantityDbContext)db).SystemsOfUnits;
+            obj = new SystemOfUnitsRepository((QuantityDbContext)db);
 
             base.TestInitialize();
 
